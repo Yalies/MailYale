@@ -15,10 +15,10 @@ def scrape(cookie):
     filename = 'page.html'
     if not os.path.exists(filename):
         print('Page not cached, fetching...')
-        params.update({
+        params = {
             'currentIndex': -1,
             'numberToGet': -1,
-        })
+        }
 
         r = requests.get('https://students.yale.edu/facebook/PhotoPageNew',
                          params=params,
