@@ -7,8 +7,7 @@ import time
 
 DEBUG = False
 
-with open('cookie.txt', 'r') as f:
-    cookie = f.read().strip()
+cookie = os.environ['YALE_COOKIE']
 
 headers = {
     'Cookie': cookie,
