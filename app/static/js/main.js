@@ -20,14 +20,16 @@ onchange = function(e) {
 
             }
         } else {
+            let otherCheckboxes = Array.from(input.parentElement.parentElement.querySelectorAll('input[type="checkbox"]'))
+            let allCheckbox = otherCheckboxes.shift();
             if (checked) {
-                input.parentElement.parentElement.querySelector('input[type="checkbox"][name$="-all"]').checked = false;
+                allCheckbox.checked = false;
             } else {
-                let sectionCheckboxes = input.parentElement.parentElement.querySelectorAll('input[type="checkbox"]').slice(1);
                 let anyChecked = false;
-                for (let checkbox of sectionCheckboxes) {
-
+                for (let checkbox of otherCheckboxes) {
+                    anyChecked = anyChecked || checkbox.checked;
                 }
+                allCheckbox.checked = !anyChecked;
             }
         }
     }
