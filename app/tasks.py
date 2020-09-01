@@ -85,3 +85,6 @@ for container in containers:
         major=major,
         address=address,
     })
+    db.session.add(student)
+
+db.session.commit()
