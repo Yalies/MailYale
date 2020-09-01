@@ -30,8 +30,16 @@ def index():
 @app.route('/query', methods=['POST'])
 def query():
     filters = request.get_json()
-
-    return jsonify(['erik.boesen@yale.edu'])
+    students_query = Student.query
+    for category in filters:
+        # TODO: do this more cleanly
+        #students_query.filter_by(**{fil: Student.
+        if category == 'college':
+            students_query.filter(Student.year.in_(filters[category]))
+        elif category == 'year':
+            students_query.filter(Student.year.in_(filters[category]))
+    students = students_query.all()
+    return jsonify([student.email for student in students])
 
 @app.route('/scraper')
 def scraper():

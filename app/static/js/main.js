@@ -38,22 +38,28 @@ let submit = document.getElementById('submit');
     sections = document.getElementsByTagName('section');
 
 submit.onclick = function() {
-    let payload = {};
+    let filters = {};
     for (let section of sections) {
         let category = section.id;
         let otherCheckboxes = Array.from(section.getElementsByTagName('input'));
         let allCheckbox = otherCheckboxes.shift();
         if (!allCheckbox.checked) {
-            payload[category] = []
+            filters[category] = []
             for (let checkbox of otherCheckboxes) {
                 if (checkbox.checked) {
-                    payload[category].push(checkbox.name);
+                    filters[category].push(checkbox.name);
                 }
             }
         }
     }
-    console.log(payload);
-    fetch('/query', { method: 'POST' })
+    console.log(filters);
+    fetch('/query', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(filters),
+    })
         .then(response => response.json())
         .then(emails => {
             output.value = emails.join(', ');
