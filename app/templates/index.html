@@ -24,6 +24,17 @@
     </label>
     {% endfor %}
 </section>
+<section id="major">
+    <h4>Major</h4>
+    <label>
+        <input type="checkbox" name="major-all"> All
+    </label>
+    {% for major in majors %}
+    <label>
+        <input type="checkbox" name="{{ major }}"> {{ major or "(Empty)" }}
+    </label>
+    {% endfor %}
+</section>
 <button id="submit">Get emails</button>
 <textarea id="output" cols=60 rows=15 placeholder="Emails will appear here."></textarea>
 <script src="/static/js/index.js"></script>

@@ -73,7 +73,7 @@ def scrape(cookie):
             college=college,
             pronoun=container.find("div", {"class": "student_info_pronoun"}).text,
             # Guess an email based on name if none provided
-            email=email or (firstname + '.' + lastname).replace(' ', '').lower() + '@yale.edu'
+            email=email or (firstname + '.' + lastname).replace(' ', '').lower() + '@yale.edu',
             room=room,
             birthday=birthday,
             major=major,
