@@ -46,5 +46,6 @@ def scraper():
     if request.method == 'GET':
         return render_template('scraper.html')
     payload = request.get_json()
-    tasks.scrape.delay(payload['cookie'])
+    tasks.scrape.apply_async(args=[payload['cookie']])
+    return '', 200
 

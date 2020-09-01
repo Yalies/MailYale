@@ -17,6 +17,12 @@ button {
     padding: 8px 10px;
     cursor: pointer;
 }
+button.success {
+    background: #38e128;
+}
+button.fail {
+    background: #f20000;
+}
 textarea {
     margin-top: 10px;
     display: block;
