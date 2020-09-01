@@ -1,5 +1,8 @@
 flask
 flask-cors
+flask-sqlalchemy
+flask-migrate
+psycopg2
 beautifulsoup4
 requests
 gunicorn
