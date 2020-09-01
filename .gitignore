@@ -111,4 +111,4 @@ celerybeat.pid
 logs
 *.db
 data/
-
+page.html
