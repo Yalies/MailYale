@@ -62,6 +62,7 @@ submit.onclick = function() {
     })
         .then(response => response.json())
         .then(emails => {
+            console.log(emails);
             output.value = emails.join(', ');
         });
 }
