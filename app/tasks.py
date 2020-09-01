@@ -1,4 +1,4 @@
-from app import app, redis, celery
+from app import app, db, celery
 
 import time
 
@@ -68,20 +68,19 @@ for container in containers:
         major = ""
         address = ""
 
-    students.append({
-        "forename": forename,
-        "surname": surname,
-        "year": int(container.find("div", {"class": "student_year"}).text.replace("'", "20")),
-        "pronoun": container.find("div", {"class": "student_info_pronoun"}).text,
-        "email": email,
-        "room": room,
-        "birthday": birthday,
-        "major": major,
-        "address": address,
-    })
+    image_id = container.find("div", {"class": "student_img"}).find("img")["src"][len("/facebook/Photo?id="):]
 
-with open("students.csv", "w", encoding="utf-8") as f:
-    keys = students[0].keys()
-    writer = csv.DictWriter(f, keys)
-    writer.writeheader()
-    writer.writerows(students)
+    # Clear all students
+    Student.query.delete()
+    student = Student(
+        id=image_id,
+        forename=forename,
+        surname=surname,
+        year=int(container.find("div", {"class": "student_year"}).text.replace("'", "20")),
+        pronoun=container.find("div", {"class": "student_info_pronoun"}).text,
+        email=email,
+        room=room,
+        birthday=birthday,
+        major=major,
+        address=address,
+    })
