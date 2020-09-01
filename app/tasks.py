@@ -77,6 +77,7 @@ for container in containers:
         forename=forename,
         surname=surname,
         year=int(container.find("div", {"class": "student_year"}).text.replace("'", "20")),
+        college=college,
         pronoun=container.find("div", {"class": "student_info_pronoun"}).text,
         email=email,
         room=room,
