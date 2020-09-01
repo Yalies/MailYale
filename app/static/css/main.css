@@ -14,20 +14,26 @@
 html, body { height: 100%; }
 body {
     font-family: 'Lexend Deca', serif;
-    font-size: 20px;
+    font-size: 14px;
     padding: 20px;
-    color: white;
-    background: #00356b;
+    color: #00356b;
+    background: white;
     border-width: 20px;
     border-style: solid;
-    border-color: white;
+    border-color: #00356b;
 }
-
+header {
+    margin-bottom: 10px;
+}
+h2 {
+    font-size: 30px;
+}
 a {
     color: inherit;
 }
-
 footer {
+    margin-top: 10px;
     font-size: 10px;
-    opacity: .5;
+    color: lightgray;
+    max-width: 6.5in;
 }
