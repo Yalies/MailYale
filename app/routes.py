@@ -35,9 +35,9 @@ def query():
         # TODO: do this more cleanly
         #students_query.filter_by(**{fil: Student.
         if category == 'college':
-            students_query.filter(Student.year.in_(filters[category]))
+            students_query = students_query.filter(Student.college.in_(filters[category]))
         elif category == 'year':
-            students_query.filter(Student.year.in_(filters[category]))
+            students_query = students_query.filter(Student.year.in_(filters[category]))
     students = students_query.all()
     return jsonify([student.email for student in students])
 
@@ -48,4 +48,3 @@ def scraper():
     payload = request.get_json()
     tasks.scrape.apply_async(args=[payload['cookie']])
     return '', 200
-
