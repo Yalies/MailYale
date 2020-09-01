@@ -7,3 +7,7 @@ import json
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/scraper')
+def scraper():
+    return render_template('scraper.html')
