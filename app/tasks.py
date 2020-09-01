@@ -69,7 +69,6 @@ def scrape(cookie):
         image_id = container.find("div", {"class": "student_img"}).find("img")["src"][len("/facebook/Photo?id="):]
 
         student = Student(
-            id=image_id,
             forename=forename,
             surname=surname,
             year=int(container.find("div", {"class": "student_year"}).text.replace("'", "20")),

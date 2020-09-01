@@ -4,7 +4,7 @@ from app import app, db
 class Student(db.Model):
     __tablename__ = 'students'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     forename = db.Column(db.String, nullable=False)
     surname = db.Column(db.String, nullable=False)
     year = db.Column(db.Integer)
