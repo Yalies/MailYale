@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request
 from app import app, tasks
 from app.models import Student
 
@@ -26,6 +26,10 @@ def index():
     current_year = datetime.date.today().year
     years = list(range(current_year, current_year + 5))
     return render_template('index.html', colleges=colleges, years=years)
+
+@app.route('/query', methods=['POST'])
+def query():
+    data = request.get_json()
 
 @app.route('/scraper')
 def scraper():
