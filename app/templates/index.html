@@ -2,23 +2,25 @@
 
 {% block content %}
 <h3>Categories to target</h3>
-<label>
-    <input type="checkbox" name="all">
-    All students
-</label>
 <section>
     <h4>Colleges</h4>
+    <label>
+        <input type="checkbox" name="college-all"> All
+    </label>
     {% for college in colleges %}
     <label>
-        <input type="checkbox" name="{{ college }}"> {{ college }}
+        <input type="checkbox" name="college-{{ college }}"> {{ college }}
     </label>
     {% endfor %}
 </section>
 <section>
     <h4>Years</h4>
+    <label>
+        <input type="checkbox" name="year-all"> All
+    </label>
     {% for year in years %}
     <label>
-        <input type="checkbox" name="{{ year }}"> {{ year }}
+        <input type="checkbox" name="year-{{ year }}"> {{ year }}
     </label>
     {% endfor %}
 </section>
