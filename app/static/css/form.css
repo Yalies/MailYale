@@ -1,0 +1,5 @@
+textarea {
+    font: inherit;
+    border: solid 1px lightgray;
+    resize: none;
+}
