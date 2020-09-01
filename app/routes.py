@@ -1,7 +1,8 @@
 from flask import render_template
 from app import app, tasks
+from app.models import Student
 
-import json
+import datetime
 
 
 @app.route('/')
@@ -22,7 +23,9 @@ def index():
         'Timothy Dwight College',
         'Trumbull College',
     ]
-    return render_template('index.html', colleges=colleges)
+    current_year = datetime.date.today().year
+    years = list(range(current_year, current_year + 5))
+    return render_template('index.html', colleges=colleges, years=years)
 
 @app.route('/scraper')
 def scraper():

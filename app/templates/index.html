@@ -1,32 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action="" target="_self" method="post">
-    <h3>Categories to target</h3>
-    <section>
-        <label>
-            <input type="checkbox" name="all">
-            All students
-        </label>
-    </section>
-    <section>
-        <label>
-Berkeley College
-Branford College
-Davenport College
-Ezra Stiles College
-Jonathan Edwards College
-Benjamin Franklin College
-Grace Hopper College
-Morse College
-Pauli Murray College
-Pierson College
-Saybrook College
-Silliman College
-Timothy Dwight College
-Trumbull College
-        </label>
-    </section>
-    <textarea id="output" cols=60 rows=15 placeholder="Emails will appear here."></textarea>
-</form>
+<h3>Categories to target</h3>
+<label>
+    <input type="checkbox" name="all">
+    All students
+</label>
+<section>
+    <h4>Colleges</h4>
+    {% for college in colleges %}
+    <label>
+        <input type="checkbox" name="{{ college }}"> {{ college }}
+    </label>
+    {% endfor %}
+</section>
+<section>
+    <h4>Years</h4>
+    {% for year in years %}
+    <label>
+        <input type="checkbox" name="{{ year }}"> {{ year }}
+    </label>
+    {% endfor %}
+</section>
+<textarea id="output" cols=60 rows=15 placeholder="Emails will appear here."></textarea>
 {% endblock %}
