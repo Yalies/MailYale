@@ -71,15 +71,6 @@ for container in containers:
         major = ""
         address = ""
 
-    image_id = container.find("div", {"class": "student_img"}).find("img")["src"][len("/facebook/Photo?id="):]
-    image_filename = 'images/' + forename + ' ' + surname + '.jpg'
-    if not os.path.exists(image_filename):
-        image_r = requests.get('https://students.yale.edu/facebook/Photo?id=' + image_id,
-                               headers=headers)
-        with open(image_filename, 'wb') as f:
-            f.write(image_r.content)
-        time.sleep(2)
-
     students.append({
         "forename": forename,
         "surname": surname,
