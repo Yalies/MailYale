@@ -41,6 +41,9 @@ def query():
     students = students_query.all()
     return jsonify([student.email for student in students])
 
-@app.route('/scraper')
+@app.route('/scraper', methods=['GET', 'POST'])
 def scraper():
-    return render_template('scraper.html')
+    if request.method == 'GET':
+        return render_template('scraper.html')
+    payload = request.get_json()
+
