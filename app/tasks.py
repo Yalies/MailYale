@@ -6,8 +6,6 @@ import time
 import re
 from bs4 import BeautifulSoup
 
-DEBUG = False
-
 def scrape():
     cookie = os.environ['YALE_COOKIE']
 
@@ -18,15 +16,10 @@ def scrape():
     filename = 'page.html'
     if not os.path.exists(filename):
         print('Page not cached, fetching...')
-        params = {
+        params.update({
             'currentIndex': -1,
-            'numberToGet': 12,
-        }
-        if not DEBUG:
-            params.update({
-                'currentIndex': -1,
-                'numberToGet': -1,
-            })
+            'numberToGet': -1,
+        })
 
         r = requests.get('https://students.yale.edu/facebook/PhotoPageNew',
                          params=params,
