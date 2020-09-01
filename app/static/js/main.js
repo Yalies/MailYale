@@ -39,14 +39,17 @@ let submit = document.getElementById('submit');
 submit.onclick = function() {
     let payload = {};
     for (let section of sections) {
-        let category = section.getElementsByTagName('h4')[0].textContent;
+        let category = section.id;
         let otherCheckboxes = Array.from(section.getElementsByTagName('input'));
         let allCheckbox = otherCheckboxes.shift();
         if (!allCheckbox.checked) {
             payload[category] = []
-            for (let checkbox of categoryCheckboxes) {
-                payload[category].push(checkbox.name);
+            for (let checkbox of otherCheckboxes) {
+                if (checkbox.checked) {
+                    payload[category].push(checkbox.name);
+                }
             }
         }
     }
+    console.log(payload);
 }
