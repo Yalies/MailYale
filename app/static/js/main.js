@@ -1,6 +1,7 @@
 let body = document.body,
     checkboxes = document.querySelectorAll('input[type="checkbox"]'),
-    allCheckboxes = document.querySelectorAll('input[type="checkbox"][name$="-all"]');
+    allCheckboxes = document.querySelectorAll('input[type="checkbox"][name$="-all"]'),
+    output = document.getElementById('output');
 
 for (let checkbox of checkboxes) {
     checkbox.checked = false;
@@ -52,4 +53,9 @@ submit.onclick = function() {
         }
     }
     console.log(payload);
+    fetch('/query', { method: 'POST' })
+        .then(response => response.json())
+        .then(emails => {
+            output.value = emails.join(', ');
+        });
 }

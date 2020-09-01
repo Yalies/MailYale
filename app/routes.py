@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import render_template, request, jsonify
 from app import app, tasks
 from app.models import Student
 
@@ -29,7 +29,9 @@ def index():
 
 @app.route('/query', methods=['POST'])
 def query():
-    data = request.get_json()
+    filters = request.get_json()
+
+    return jsonify(['erik.boesen@yale.edu'])
 
 @app.route('/scraper')
 def scraper():
