@@ -66,8 +66,6 @@ def scrape(cookie):
             major = ""
             address = ""
 
-        image_id = container.find("div", {"class": "student_img"}).find("img")["src"][len("/facebook/Photo?id="):]
-
         student = Student(
             forename=forename,
             surname=surname,
