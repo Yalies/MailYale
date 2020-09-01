@@ -40,7 +40,8 @@ def scrape(cookie):
     print('Building BeautifulSoup tree.')
     page = BeautifulSoup(page_text, "html.parser")
     containers = page.find_all("div", {"class": "student_container"})
-    students = []
+    # Clear all students
+    Student.query.delete()
     for container in containers:
         info = container.find_all("div", {"class": "student_info"})
         name = container.find("h5", {"class": "yalehead"}).text.strip()
@@ -67,8 +68,6 @@ def scrape(cookie):
 
         image_id = container.find("div", {"class": "student_img"}).find("img")["src"][len("/facebook/Photo?id="):]
 
-        # Clear all students
-        Student.query.delete()
         student = Student(
             id=image_id,
             forename=forename,
