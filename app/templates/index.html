@@ -20,9 +20,10 @@
     </label>
     {% for year in years %}
     <label>
-        <input type="checkbox" name="year-{{ year }}"> {{ year }}
+        <input type="checkbox" name="{{ year }}"> {{ year }}
     </label>
     {% endfor %}
 </section>
+<button id="submit">Get emails</button>
 <textarea id="output" cols=60 rows=15 placeholder="Emails will appear here."></textarea>
 {% endblock %}

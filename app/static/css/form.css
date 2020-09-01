@@ -7,6 +7,15 @@ section {
 label {
     display: block;
 }
+button {
+    border: none;
+    background: #00356b;
+    display: block;
+    margin-top: 10px;
+    color: white;
+    font: inherit;
+    padding: 8px 10px;
+}
 textarea {
     margin-top: 10px;
     display: block;
