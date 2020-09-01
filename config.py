@@ -1,4 +1,5 @@
 import os
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 REDIS = os.environ.get('REDIS_URL', 'redis://localhost:6379/0')
