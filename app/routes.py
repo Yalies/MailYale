@@ -133,6 +133,8 @@ def query():
             students_query = students_query.filter(Student.college.in_(filters[category]))
         elif category == 'year':
             students_query = students_query.filter(Student.year.in_(filters[category]))
+        elif category == 'major':
+            students_query = students_query.filter(Student.major.in_(filters[category]))
     students = students_query.all()
     return jsonify([student.email for student in students])
 
