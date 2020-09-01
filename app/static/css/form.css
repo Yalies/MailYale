@@ -15,6 +15,7 @@ button {
     color: white;
     font: inherit;
     padding: 8px 10px;
+    cursor: pointer;
 }
 textarea {
     margin-top: 10px;

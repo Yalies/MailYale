@@ -13,15 +13,13 @@ onchange = function(e) {
     let input = e.target;
     if (input.type === 'checkbox') {
         let checked = input.checked;
-        if (input.name.endsWith('-all')) {
-            if (!checked) {
-
-            } else {
-
+        let otherCheckboxes = Array.from(input.parentElement.parentElement.getElementsByTagName('input'));
+        let allCheckbox = otherCheckboxes.shift();
+        if (input == allCheckbox) {
+            for (let checkbox of otherCheckboxes) {
+                checkbox.checked = !checked;
             }
         } else {
-            let otherCheckboxes = Array.from(input.parentElement.parentElement.querySelectorAll('input[type="checkbox"]'))
-            let allCheckbox = otherCheckboxes.shift();
             if (checked) {
                 allCheckbox.checked = false;
             } else {
@@ -34,3 +32,21 @@ onchange = function(e) {
         }
     }
 };
+
+let submit = document.getElementById('submit');
+    sections = document.getElementsByTagName('section');
+
+submit.onclick = function() {
+    let payload = {};
+    for (let section of sections) {
+        let category = section.getElementsByTagName('h4')[0].textContent;
+        let otherCheckboxes = Array.from(section.getElementsByTagName('input'));
+        let allCheckbox = otherCheckboxes.shift();
+        if (!allCheckbox.checked) {
+            payload[category] = []
+            for (let checkbox of categoryCheckboxes) {
+                payload[category].push(checkbox.name);
+            }
+        }
+    }
+}
