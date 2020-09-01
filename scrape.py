@@ -74,7 +74,6 @@ for container in containers:
     students.append({
         "forename": forename,
         "surname": surname,
-        "image_id": image_id,
         "year": int(container.find("div", {"class": "student_year"}).text.replace("'", "20")),
         "pronoun": container.find("div", {"class": "student_info_pronoun"}).text,
         "email": email,
