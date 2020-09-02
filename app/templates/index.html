@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<button id="submit">Get email list</button>
+<textarea id="output" cols=60 rows=15 readonly placeholder="Emails will appear here."></textarea>
 <h3>Categories to target</h3>
 <section id="college">
     <h4>College</h4>
@@ -46,7 +48,5 @@
     </label>
     {% endfor %}
 </section>
-<button id="submit">Get emails</button>
-<textarea id="output" cols=60 rows=15 readonly placeholder="Emails will appear here."></textarea>
 <script src="/static/js/index.js"></script>
 {% endblock %}
