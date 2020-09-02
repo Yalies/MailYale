@@ -55,7 +55,7 @@ def scrape(cookie):
         except AttributeError:
             email = ""
         trivia = info[1].find_all(text=True, recursive=False)
-        RE_ROOM = re.compile(r"^([A-Z]{2})-([A-Z]+)(\d)(\d+)([A-Z]+)?$")
+        RE_ROOM = re.compile(r"^([A-Z]+)-([A-Z]+)(\d)(\d+)([A-Z]+)?$")
         try:
             if RE_ROOM.match(trivia[0]):
                 room = trivia.pop(0)
@@ -73,13 +73,13 @@ def scrape(cookie):
         # Split up room number
         if room:
             result = RE_ROOM.search(room)
-            building_code, entryway, floor, suite, room_number = result.groups()
+            building_code, entryway, floor, suite, room = result.groups()
         else:
             building_code = None
             entryway = None
             floor = None
             suite = None
-            room_number = None
+            room = None
 
         student = Student(
             forename=forename,
