@@ -70,13 +70,13 @@ def scrape(cookie):
         ROOM_NUMBER = re.compile(r"^([A-Z]{2})-([A-Z]+)(\d)(\d+)([A-Z]+)?$")
         if room:
             result = ROOM_NUMBER.search(room)
-            building_code, entryway, floor, suite, room = result.groups()
+            building_code, entryway, floor, suite, room_number = result.groups()
         else:
             building_code = None
             entryway = None
             floor = None
             suite = None
-            room = None
+            room_number = None
 
         student = Student(
             forename=forename,
@@ -86,11 +86,10 @@ def scrape(cookie):
             pronoun=container.find("div", {"class": "student_info_pronoun"}).text,
             # Guess an email based on name if none provided
             email=email or (firstname + '.' + lastname).replace(' ', '').lower() + '@yale.edu',
-            room=room,
             building_code=building_code,
             entryway=entryway,
-            floor=floor,
-            suite=suite,
+            floor=int(floor),
+            suite=int(suite),
             room=room,
             birthday=birthday,
             major=major,
