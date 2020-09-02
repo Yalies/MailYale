@@ -1,4 +1,5 @@
 from flask import render_template, request, jsonify
+from flask_cas import login_required
 from app import app, tasks
 from app.models import Student
 
@@ -122,6 +123,7 @@ def index():
     ]
     return render_template('index.html', colleges=colleges, years=years, majors=majors)
 
+
 @app.route('/query', methods=['POST'])
 def query():
     filters = request.get_json()
@@ -136,7 +138,8 @@ def query():
         elif category == 'major':
             students_query = students_query.filter(Student.major.in_(filters[category]))
     students = students_query.all()
-    return jsonify([student.email for student in students])
+    return jsonify([student.email for student in students if student.email])
+
 
 @app.route('/scraper', methods=['GET', 'POST'])
 def scraper():
