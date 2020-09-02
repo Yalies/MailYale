@@ -26,7 +26,9 @@ button.fail {
 textarea {
     max-width: 100%;
     margin-top: 10px;
-    display: block;
+    padding: 10px;
+    overflow: visible;
+    display: none;
     font: inherit;
     border: solid 1px lightgray;
     resize: none;

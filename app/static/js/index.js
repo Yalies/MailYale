@@ -64,5 +64,6 @@ submit.onclick = function() {
         .then(emails => {
             console.log(emails);
             output.value = emails.join(', ');
+            output.style.display = 'block';
         });
 }
