@@ -110,6 +110,7 @@ celerybeat.pid
 # Custom
 logs
 *.db
+*.db-journal
 data/
 page.html
 students.csv
