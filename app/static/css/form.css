@@ -24,6 +24,7 @@ button.fail {
     background: #f20000;
 }
 textarea {
+    max-width: 100%;
     margin-top: 10px;
     display: block;
     font: inherit;
