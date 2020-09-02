@@ -35,6 +35,17 @@
     </label>
     {% endfor %}
 </section>
+<section id="building_code">
+    <h4>Building</h4>
+    <label>
+        <input type="checkbox" name="building_code-all"> All
+    </label>
+    {% for building_code, building in building_codes.items() %}
+    <label>
+        <input type="checkbox" name="{{ building_code }}"> {{ building }}
+    </label>
+    {% endfor %}
+</section>
 <button id="submit">Get emails</button>
 <textarea id="output" cols=60 rows=15 placeholder="Emails will appear here."></textarea>
 <script src="/static/js/index.js"></script>

@@ -24,6 +24,30 @@ def index():
         'Timothy Dwight College',
         'Trumbull College',
     ]
+    building_codes = {
+        '': 'Off Campus',
+        'W': 'Welch Hall',
+        'F': 'Farnam Hall',
+        'D': 'Durfee Hall',
+        'L': 'Lawrance Hall',
+        'V': 'Vanderbilt Hall',
+        'LW': 'Lanman-Wright Hall',
+        'BK': 'Berkeley College',
+        'BR': 'Branford College',
+        'DC': 'Davenport College',
+        'ES': 'Ezra Stiles College',
+        'JE': 'Jonathan Edwards College',
+        'BF': 'Benjamin Franklin College',
+        'GH': 'Grace Hopper College',
+        'MC': 'Morse College',
+        'MY': 'Pauli Murray College',
+        'PC': 'Pierson College',
+        'SY': 'Saybrook College',
+        'SM': 'Silliman College',
+        'TD': 'Timothy Dwight College',
+        'TC': 'Trumbull College',
+        'BM': 'Bingham Hall',
+    }
     current_year = datetime.date.today().year
     years = list(range(current_year, current_year + 5))
     majors = [
@@ -121,7 +145,8 @@ def index():
         'Urban Studies',
         'Women\'sGender&SexualityStudies',
     ]
-    return render_template('index.html', colleges=colleges, years=years, majors=majors)
+    return render_template('index.html', colleges=colleges,
+                           years=years, majors=majors, building_codes=building_codes)
 
 
 @app.route('/query', methods=['POST'])
