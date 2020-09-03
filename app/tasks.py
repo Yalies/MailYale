@@ -56,13 +56,15 @@ def scrape(cookie):
             email = ''
         trivia = info[1].find_all(text=True, recursive=False)
         RE_ROOM = re.compile(r'^([A-Z]+)-([A-Z]+)(\d+)(\d)([A-Z]+)?$')
+        with open('app/res/majors.txt') as f:
+            majors = f.read().splitlines()
         try:
             if RE_ROOM.match(trivia[0]):
                 room = trivia.pop(0)
             else:
                 room = None
             birthday = trivia.pop()
-            major = trivia.pop()
+            major = trivia.pop() if trivia[-1] in majors else None
             address = '\n'.join(trivia)
         except IndexError:
             room = None
