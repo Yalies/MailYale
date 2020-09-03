@@ -9,6 +9,12 @@ import datetime
 
 with open('app/res/majors.txt') as f:
     majors = f.read().splitlines()
+states = {}
+with open('app/res/states.txt') as f:
+    for line in f.read().splitlines():
+        state, abbreviation = line.split()
+        states[abbreviation] = state
+states[''] = 'International/Other'
 
 
 @app.route('/')
@@ -60,14 +66,12 @@ def index():
     floors = db.session.query(distinct(Student.floor)).order_by(Student.floor)
     suites = db.session.query(distinct(Student.suite)).order_by(Student.suite)
     rooms = db.session.query(distinct(Student.room)).order_by(Student.room)
-    states = db.session.query(distinct(Student.state)).order_by(Student.state)
     # SQLAlchemy returns lists of tuples, so we gotta convert to a list of items.
     # TODO: is there a SQL-based way to do this?
     entryways = untuple(entryways)
     floors = untuple(floors)
     suites = untuple(suites)
     rooms = untuple(rooms)
-    states = untuple(states)
     return render_template('index.html', colleges=colleges,
                            years=years, majors=majors, building_codes=building_codes,
                            entryways=entryways, floors=floors, suites=suites, rooms=rooms, states=states)
