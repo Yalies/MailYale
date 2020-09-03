@@ -69,22 +69,19 @@ def scrape(cookie):
         RE_BIRTHDAY = re.compile(r'^[A-Z][a-z]{2} \d{1,2}$')
         with open('app/res/majors.txt') as f:
             majors = f.read().splitlines()
+        room = None
+        birthday = None
+        major = None
+        address = None
+        state = None
         try:
-            if RE_ROOM.match(trivia[0]):
-                room = trivia.pop(0)
-            else:
-                room = None
-
-            birthday = trivia.pop()
+            room = trivia.pop(0) if RE_ROOM.match(trivia[0]) else None
+            birthday = trivia.pop() if RE_BIRTHDAY.match(trivia[-1]) else None
             major = trivia.pop() if trivia[-1] in majors else None
             address = ', '.join(trivia)
             state = parse_address(trivia)
         except IndexError:
-            room = None
-            birthday = None
-            major = None
-            address = None
-            state = None
+            pass
 
         # Split up room number
         if room:
