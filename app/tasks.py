@@ -14,7 +14,9 @@ def parse_address(address):
     address = ', '.join(address)
     try:
         components, _ = usaddress.tag(address)
-        return components['StateName']
+        return components.get('StateName')
+    except usaddress.RepeatedLabelError:
+        return None
 
 
 @celery.task
