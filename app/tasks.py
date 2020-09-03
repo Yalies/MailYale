@@ -59,9 +59,13 @@ def clean_year(year):
     return 2000 + int(year)
 
 
+def guess_email(student):
+    return (student.forename + '.' + student.surname).replace(' ', '').lower() + '@yale.edu'
+
+
 def parse_address(address):
     # Remove duplicates
-    address = list(dict.from_keys(address))
+    address = list(dict.fromkeys(address))
     address = ', '.join(address)
     try:
         components, _ = usaddress.tag(address)
@@ -91,7 +95,7 @@ def scrape(cookie):
         try:
             student.email = info[1].find('a').text
         except AttributeError:
-            student.email = (forename + '.' + surname).replace(' ', '').lower() + '@yale.edu'
+            student.email = guess_email(student)
         trivia = info[1].find_all(text=True, recursive=False)
         try:
             room = trivia.pop(0) if RE_ROOM.match(trivia[0]) else None
@@ -99,7 +103,7 @@ def scrape(cookie):
                 result = RE_ROOM.search(room)
                 student.building_code, student.entryway, student.floor, student.suite, student.room = result.groups()
             student.birthday = trivia.pop() if RE_BIRTHDAY.match(trivia[-1]) else None
-            student.major = trivia.pop() if trivia[-1] in majors else None
+            student.major = trivia.pop() if trivia[-1] in MAJORS else None
             student.address = ', '.join(trivia)
             student.state = parse_address(trivia)
         except IndexError:
