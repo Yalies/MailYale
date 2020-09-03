@@ -8,6 +8,10 @@ from bs4 import BeautifulSoup
 import usaddress
 
 
+with open('app/res/majors.txt') as f:
+    majors = f.read().splitlines()
+
+
 def get_html():
     filename = 'page.html'
     if not os.path.exists(filename):
@@ -30,6 +34,18 @@ def get_html():
             print('Loading cached page... ', end='')
             page_text = f.read()
             print('done.')
+    return page_text
+
+
+def clean_year(year):
+    year = year.lstrip('\'')
+    if not year:
+        return None
+    int(.replace('\'', '20'))
+        if year == 20:
+            year = None
+
+
 
 
 def parse_address(address):
@@ -48,73 +64,44 @@ def scrape(cookie):
     html = get_html()
 
     print('Building BeautifulSoup tree.')
-    page = BeautifulSoup(page_text, 'html.parser')
-    containers = page.find_all('div', {'class': 'student_container'})
+    tree = BeautifulSoup(html, 'html.parser')
+    containers = tree.find_all('div', {'class': 'student_container'})
+
+    RE_ROOM = re.compile(r'^([A-Z]+)-([A-Z]+)(\d+)(\d)([A-Z]+)?$')
+    RE_BIRTHDAY = re.compile(r'^[A-Z][a-z]{2} \d{1,2}$')
     # Clear all students
     Student.query.delete()
     for container in containers:
+        student = Student()
+
         info = container.find_all('div', {'class': 'student_info'})
         name = container.find('h5', {'class': 'yalehead'}).text.strip()
         print('Parsing ' + name)
-        surname, forename = name.split(', ', 1)
-        surname = surname.strip()
-        forename = forename.strip()
-        college = info[0].text.replace(' College', '')
+        student.surname, student.forename = name.split(', ', 1)
+        student.forename = student.forename.strip()
+        student.surname = student.surname.strip()
+
+        student.year = clean_year(container.find('div', {'class': 'student_year'}).text)
+
+        student.college = info[0].text.replace(' College', '')
+        student.pronoun = container.find('div', {'class': 'student_info_pronoun'}).text
         try:
-            email = info[1].find('a').text
+            student.email = info[1].find('a').text
         except AttributeError:
-            email = ''
+            student.email = (forename + '.' + surname).replace(' ', '').lower() + '@yale.edu'
         trivia = info[1].find_all(text=True, recursive=False)
-        RE_ROOM = re.compile(r'^([A-Z]+)-([A-Z]+)(\d+)(\d)([A-Z]+)?$')
-        RE_BIRTHDAY = re.compile(r'^[A-Z][a-z]{2} \d{1,2}$')
-        with open('app/res/majors.txt') as f:
-            majors = f.read().splitlines()
-        room = None
-        birthday = None
-        major = None
-        address = None
-        state = None
         try:
             room = trivia.pop(0) if RE_ROOM.match(trivia[0]) else None
-            birthday = trivia.pop() if RE_BIRTHDAY.match(trivia[-1]) else None
-            major = trivia.pop() if trivia[-1] in majors else None
-            address = ', '.join(trivia)
-            state = parse_address(trivia)
+            if room:
+                result = RE_ROOM.search(room)
+                student.building_code, student.entryway, student.floor, student.suite, student.room = result.groups()
+            student.birthday = trivia.pop() if RE_BIRTHDAY.match(trivia[-1]) else None
+            student.major = trivia.pop() if trivia[-1] in majors else None
+            student.address = ', '.join(trivia)
+            student.state = parse_address(trivia)
         except IndexError:
             pass
 
-        # Split up room number
-        if room:
-            result = RE_ROOM.search(room)
-            building_code, entryway, floor, suite, room = result.groups()
-        else:
-            building_code = None
-            entryway = None
-            floor = None
-            suite = None
-            room = None
-        year = int(container.find('div', {'class': 'student_year'}).text.replace('\'', '20'))
-        if year == 20:
-            year = None
-
-        student = Student(
-            forename=forename,
-            surname=surname,
-            year=year,
-            college=college,
-            pronoun=container.find('div', {'class': 'student_info_pronoun'}).text,
-            # Guess an email based on name if none provided
-            email=email or (forename + '.' + surname).replace(' ', '').lower() + '@yale.edu',
-            building_code=building_code,
-            entryway=entryway,
-            floor=int(floor) if floor else None,
-            suite=int(suite) if floor else None,
-            room=room,
-            birthday=birthday,
-            major=major,
-            address=address,
-            state=state,
-        )
         db.session.add(student)
 
     db.session.commit()
