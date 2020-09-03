@@ -10,8 +10,11 @@ import usaddress
 
 with open('app/res/majors.txt') as f:
     MAJORS = f.read().splitlines()
+STATES = {}
 with open('app/res/states.txt') as f:
-    STATES = f.read().splitlines()
+    for line in f.read().splitlines():
+        state, abbreviation = line.split()
+        states[abbreviation] = state
 RE_ROOM = re.compile(r'^([A-Z]+)-([A-Z]+)(\d+)(\d)([A-Z]+)?$')
 RE_BIRTHDAY = re.compile(r'^[A-Z][a-z]{2} \d{1,2}$')
 
@@ -71,7 +74,7 @@ def parse_address(address):
         components = usaddress.parse(address)
         options = [
             component for component, label in components
-            if label == 'StateName' and len(component) == 2 and component.isupper()
+            if label == 'StateName' and component in STATES
         ]
         if options:
             return options[0]
