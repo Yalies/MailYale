@@ -4,39 +4,8 @@
 <button id="submit">Generate email list</button>
 <textarea style="display: none;" id="output" cols=60 rows=8 readonly placeholder="No matching students. :("></textarea>
 {% with name = "college", items = colleges %}{% include "_section.html" %}{% endwith %}
-<section id="college">
-    <h4>College</h4>
-    <label>
-        <input type="checkbox" name="college-all"> All
-    </label>
-    {% for college in colleges %}
-    <label>
-        <input type="checkbox" name="{{ college }}"> {{ college }}
-    </label>
-    {% endfor %}
-</section>
-<section id="year">
-    <h4>Year</h4>
-    <label>
-        <input type="checkbox" name="year-all"> All
-    </label>
-    {% for year in years %}
-    <label>
-        <input type="checkbox" name="{{ year }}"> {{ year or "Other" }}
-    </label>
-    {% endfor %}
-</section>
-<section id="major">
-    <h4>Major</h4>
-    <label>
-        <input type="checkbox" name="major-all"> All
-    </label>
-    {% for major in majors %}
-    <label>
-        <input type="checkbox" name="{{ major }}"> {{ major or "None" }}
-    </label>
-    {% endfor %}
-</section>
+{% with name = "year", items = years, default = "Other" %}{% include "_section.html" %}{% endwith %}
+{% with name = "major", items = majors %}{% include "_section.html" %}{% endwith %}
 <section id="building_code">
     <h4>Building</h4>
     <label>
@@ -48,27 +17,9 @@
     </label>
     {% endfor %}
 </section>
-<section id="entryway">
-    <h4>Entryway</h4>
-    <label>
-        <input type="checkbox" name="entryway-all"> All
-    </label>
-    {% for entryway in entryways %}
-    <label>
-        <input type="checkbox" name="{{ entryway }}"> {{ entryway or "None" }}
-    </label>
-    {% endfor %}
-</section>
-<section id="floor">
-    <h4>Floor</h4>
-    <label>
-        <input type="checkbox" name="entryway-all"> All
-    </label>
-    {% for floor in floors %}
-    <label>
-        <input type="checkbox" name="{{ floor }}"> {{ floor or "None" }}
-    </label>
-    {% endfor %}
-</section>
+{% with name = "entryway", items = entryways %}{% include "_section.html" %}{% endwith %}
+{% with name = "floor", items = floors %}{% include "_section.html" %}{% endwith %}
+{% with name = "suite", items = suites %}{% include "_section.html" %}{% endwith %}
+{% with name = "room", items = rooms %}{% include "_section.html" %}{% endwith %}
 <script src="/static/js/index.js"></script>
 {% endblock %}
