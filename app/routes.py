@@ -12,8 +12,8 @@ with open('app/res/majors.txt') as f:
 states = {}
 with open('app/res/states.txt') as f:
     for line in f.read().splitlines():
-        state, abbreviation = line.split()
-        states[abbreviation] = state
+        state, abbreviation = line.split('\t', 1)
+        states[abbreviation.strip()] = state.strip()
 states[''] = 'International/Other'
 
 

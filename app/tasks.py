@@ -13,8 +13,8 @@ with open('app/res/majors.txt') as f:
 STATES = {}
 with open('app/res/states.txt') as f:
     for line in f.read().splitlines():
-        state, abbreviation = line.split()
-        STATES[abbreviation] = state
+        state, abbreviation = line.split('\t', 1)
+        STATES[abbreviation.strip()] = state.strip()
 RE_ROOM = re.compile(r'^([A-Z]+)-([A-Z]+)(\d+)(\d)([A-Z]+)?$')
 RE_BIRTHDAY = re.compile(r'^[A-Z][a-z]{2} \d{1,2}$')
 
