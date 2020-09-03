@@ -167,14 +167,10 @@ def query():
     filters = request.get_json()
     students_query = Student.query
     for category in filters:
-        # TODO: do this more cleanly
-        #students_query.filter_by(**{fil: Student.
-        if category == 'college':
-            students_query = students_query.filter(Student.college.in_(filters[category]))
-        elif category == 'year':
-            students_query = students_query.filter(Student.year.in_(filters[category]))
-        elif category == 'major':
-            students_query = students_query.filter(Student.major.in_(filters[category]))
+        if not category in ('college', 'year', 'major', 'building_code',
+                            'entryway', 'floor', 'suite', 'room'):
+            abort(403)
+        students_query = students_query.filter(getattr(Student, category).in_(filters[category]))
     students = students_query.all()
     return jsonify([student.email for student in students if student.email])
 
