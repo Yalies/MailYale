@@ -55,9 +55,7 @@ def clean_year(year):
     year = year.lstrip('\'')
     if not year:
         return None
-    int(.replace('\'', '20'))
-        if year == 20:
-            year = None
+    return 2000 + int(year)
 
 
 def parse_address(address):
