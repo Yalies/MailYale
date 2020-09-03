@@ -18,6 +18,7 @@ states[''] = 'International/Other'
 
 
 @app.route('/')
+@login_required
 def index():
     colleges = [
         'Berkeley',
