@@ -21,5 +21,6 @@
 {% with name = "floor", items = floors %}{% include "_section.html" %}{% endwith %}
 {% with name = "suite", items = suites %}{% include "_section.html" %}{% endwith %}
 {% with name = "room", items = rooms %}{% include "_section.html" %}{% endwith %}
+{% with name = "state", items = states, default = "International" %}{% include "_section.html" %}{% endwith %}
 <script src="/static/js/index.js"></script>
 {% endblock %}

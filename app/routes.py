@@ -60,15 +60,17 @@ def index():
     floors = db.session.query(distinct(Student.floor)).order_by(Student.floor)
     suites = db.session.query(distinct(Student.suite)).order_by(Student.suite)
     rooms = db.session.query(distinct(Student.room)).order_by(Student.room)
+    states = db.session.query(distinct(Student.state)).order_by(Student.state)
     # SQLAlchemy returns lists of tuples, so we gotta convert to a list of items.
     # TODO: is there a SQL-based way to do this?
     entryways = untuple(entryways)
     floors = untuple(floors)
     suites = untuple(suites)
     rooms = untuple(rooms)
+    states = untuple(states)
     return render_template('index.html', colleges=colleges,
                            years=years, majors=majors, building_codes=building_codes,
-                           entryways=entryways, floors=floors, suites=suites, rooms=rooms)
+                           entryways=entryways, floors=floors, suites=suites, rooms=rooms, states=states)
 
 
 @app.route('/query', methods=['POST'])
@@ -77,7 +79,7 @@ def query():
     students_query = Student.query
     for category in filters:
         if not category in ('college', 'year', 'major', 'building_code',
-                            'entryway', 'floor', 'suite', 'room'):
+                            'entryway', 'floor', 'suite', 'room', 'state'):
             abort(403)
         students_query = students_query.filter(getattr(Student, category).in_(filters[category]))
     students = students_query.all()
