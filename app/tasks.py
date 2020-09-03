@@ -53,6 +53,15 @@ def get_tree(cookie):
     return tree
 
 
+def clean_name(name):
+    name = name.strip()
+    print('Parsing ' + name)
+    forename, surname = name.split(', ', 1)
+    forename = student.forename.strip()
+    surname = student.surname.strip()
+    return forename, surname
+
+
 def clean_year(year):
     year = year.lstrip('\'')
     if not year:
@@ -76,23 +85,18 @@ def scrape(cookie):
     tree = get_tree()
     containers = tree.find_all('div', {'class': 'student_container'})
 
-    RE_ROOM = re.compile(r'^([A-Z]+)-([A-Z]+)(\d+)(\d)([A-Z]+)?$')
-    RE_BIRTHDAY = re.compile(r'^[A-Z][a-z]{2} \d{1,2}$')
     # Clear all students
     Student.query.delete()
     for container in containers:
         student = Student()
 
-        info = container.find_all('div', {'class': 'student_info'})
-        name = container.find('h5', {'class': 'yalehead'}).text.strip()
-        print('Parsing ' + name)
-        student.surname, student.forename = name.split(', ', 1)
-        student.forename = student.forename.strip()
-        student.surname = student.surname.strip()
-
+        student.surname, student.forename = clean_name(container.find('h5', {'class': 'yalehead'}).text)
         student.year = clean_year(container.find('div', {'class': 'student_year'}).text)
-        student.college = info[0].text.replace(' College', '')
         student.pronoun = container.find('div', {'class': 'student_info_pronoun'}).text
+
+        info = container.find_all('div', {'class': 'student_info'})
+
+        student.college = info[0].text.replace(' College', '')
         try:
             student.email = info[1].find('a').text
         except AttributeError:
