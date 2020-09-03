@@ -21,6 +21,16 @@
 {% with name = "floor", items = floors %}{% include "_section.html" %}{% endwith %}
 {% with name = "suite", items = suites %}{% include "_section.html" %}{% endwith %}
 {% with name = "room", items = rooms %}{% include "_section.html" %}{% endwith %}
-{% with name = "state", items = states, default = "International" %}{% include "_section.html" %}{% endwith %}
+<section id="state">
+    <h4>State</h4>
+    <label>
+        <input type="checkbox" name="state-all"> All
+    </label>
+    {% for abbreviation, state in states.items() %}
+    <label>
+        <input type="checkbox" name="{{ abbreviation }}"> {{ state or "International" }}
+    </label>
+    {% endfor %}
+</section>
 <script src="/static/js/index.js"></script>
 {% endblock %}
