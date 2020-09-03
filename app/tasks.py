@@ -47,8 +47,8 @@ def clean_name(name):
     name = name.strip()
     print('Parsing ' + name)
     forename, surname = name.split(', ', 1)
-    forename = student.forename.strip()
-    surname = student.surname.strip()
+    forename = forename.strip()
+    surname = surname.strip()
     return forename, surname
 
 
