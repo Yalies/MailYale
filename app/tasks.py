@@ -2,7 +2,7 @@ from app import app, db, celery
 from app.models import Student
 
 import os
-import time
+import pickle
 import re
 from bs4 import BeautifulSoup
 import usaddress
@@ -15,7 +15,7 @@ with open('app/res/majors.txt') as f:
 def get_html(cookie):
     filename = 'page.html'
     if not os.path.exists(filename):
-        print('Page not cached, fetching...', end='')
+        print('Page not cached, fetching.')
         r = requests.get('https://students.yale.edu/facebook/PhotoPageNew',
                          params={
                              'currentIndex': -1,
@@ -27,7 +27,7 @@ def get_html(cookie):
         html = r.text
         with open(filename, 'w') as f:
             f.write(html)
-        print('done.')
+        print('Done fetching page.')
     else:
         print('Using cached page.')
         with open(filename, 'r') as f:
@@ -36,9 +36,18 @@ def get_html(cookie):
 
 
 def get_tree(cookie):
-    html = get_html(cookie)
-    print('Building BeautifulSoup tree.')
-    tree = BeautifulSoup(html, 'html.parser')
+    filename = 'tree.pickle'
+    if not os.path.exists(filename):
+        print('Tree not cached, fetching.')
+        html = get_html(cookie)
+        print('Building tree.')
+        tree = BeautifulSoup(html, 'html.parser')
+        with open(filename, 'wb') as f:
+            pickle.dump(tree, f)
+        print('Done building tree.')
+    else:
+        with open(filename, 'rb') as f:
+            tree = pickle.load(f)
     return tree
 
 
