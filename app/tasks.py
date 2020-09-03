@@ -5,6 +5,17 @@ import os
 import time
 import re
 from bs4 import BeautifulSoup
+import usaddress
+
+
+def parse_address(address):
+    # Remove duplicates
+    address = list(dict.from_keys(address))
+    address = ', '.join(address)
+    try:
+        components, _ = usaddress.tag(address)
+        return components['StateName']
+
 
 @celery.task
 def scrape(cookie):
@@ -65,12 +76,14 @@ def scrape(cookie):
                 room = None
             birthday = trivia.pop()
             major = trivia.pop() if trivia[-1] in majors else None
-            address = '\n'.join(trivia)
+            address = ', '.join(trivia)
+            state = parse_address(trivia)
         except IndexError:
             room = None
             birthday = None
             major = None
             address = None
+            state = None
 
         # Split up room number
         if room:
