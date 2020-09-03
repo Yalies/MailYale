@@ -35,27 +35,27 @@ def scrape(cookie):
 
     # Parsing page
 
-    RE_BIRTHDAY = re.compile(r"^[A-Z][a-z]{2} \d{1,2}$")
+    RE_BIRTHDAY = re.compile(r'^[A-Z][a-z]{2} \d{1,2}$')
 
     print('Building BeautifulSoup tree.')
-    page = BeautifulSoup(page_text, "html.parser")
-    containers = page.find_all("div", {"class": "student_container"})
+    page = BeautifulSoup(page_text, 'html.parser')
+    containers = page.find_all('div', {'class': 'student_container'})
     # Clear all students
     Student.query.delete()
     for container in containers:
-        info = container.find_all("div", {"class": "student_info"})
-        name = container.find("h5", {"class": "yalehead"}).text.strip()
-        print("Parsing " + name)
-        surname, forename = name.split(", ", 1)
+        info = container.find_all('div', {'class': 'student_info'})
+        name = container.find('h5', {'class': 'yalehead'}).text.strip()
+        print('Parsing ' + name)
+        surname, forename = name.split(', ', 1)
         surname = surname.strip()
         forename = forename.strip()
         college = info[0].text
         try:
-            email = info[1].find("a").text
+            email = info[1].find('a').text
         except AttributeError:
-            email = ""
+            email = ''
         trivia = info[1].find_all(text=True, recursive=False)
-        RE_ROOM = re.compile(r"^([A-Z]+)-([A-Z]+)(\d+)(\d)([A-Z]+)?$")
+        RE_ROOM = re.compile(r'^([A-Z]+)-([A-Z]+)(\d+)(\d)([A-Z]+)?$')
         try:
             if RE_ROOM.match(trivia[0]):
                 room = trivia.pop(0)
@@ -63,7 +63,7 @@ def scrape(cookie):
                 room = None
             birthday = trivia.pop()
             major = trivia.pop()
-            address = "\n".join(trivia)
+            address = '\n'.join(trivia)
         except IndexError:
             room = None
             birthday = None
