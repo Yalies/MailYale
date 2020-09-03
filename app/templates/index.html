@@ -3,6 +3,7 @@
 {% block content %}
 <button id="submit">Generate email list</button>
 <textarea style="display: none;" id="output" cols=60 rows=8 readonly placeholder="No matching students. :("></textarea>
+{% with name = "college", items = colleges %}{% include "_section.html" %}{% endwith %}
 <section id="college">
     <h4>College</h4>
     <label>

@@ -1,0 +1,11 @@
+<section id="{{ name }}">
+    <h4>{{ name[0] | upper}}{{name[1:] }}</h4>
+    <label>
+        <input type="checkbox" name="{{ name }}-all"> All
+    </label>
+    {% for item in items %}
+    <label>
+        <input type="checkbox" name="{{ item }}"> {{ item }}
+    </label>
+    {% endfor %}
+</section>
