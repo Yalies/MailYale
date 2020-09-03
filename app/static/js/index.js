@@ -65,5 +65,11 @@ submit.onclick = function() {
             console.log(emails);
             output.value = emails.join(', ');
             output.style.display = 'block';
+            output.select();
+            document.execCommand('copy');
+            submit.textContent = 'Copied to clipboard!';
+            setTimeout(function() {
+                submit.textContent = 'Generate email list';
+            }, 1500);
         });
 }

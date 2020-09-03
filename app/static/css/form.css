@@ -11,7 +11,6 @@ button {
     border: none;
     background: #00356b;
     display: block;
-    margin-top: 10px;
     color: white;
     font: inherit;
     padding: 8px 10px;
@@ -25,10 +24,9 @@ button.fail {
 }
 textarea {
     max-width: 100%;
-    margin-top: 10px;
+    margin-bottom: 10px;
     padding: 10px;
     overflow: visible;
-    display: none;
     font: inherit;
     border: solid 1px lightgray;
     resize: none;
