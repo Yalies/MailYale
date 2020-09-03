@@ -14,7 +14,7 @@ STATES = {}
 with open('app/res/states.txt') as f:
     for line in f.read().splitlines():
         state, abbreviation = line.split()
-        states[abbreviation] = state
+        STATES[abbreviation] = state
 RE_ROOM = re.compile(r'^([A-Z]+)-([A-Z]+)(\d+)(\d)([A-Z]+)?$')
 RE_BIRTHDAY = re.compile(r'^[A-Z][a-z]{2} \d{1,2}$')
 
