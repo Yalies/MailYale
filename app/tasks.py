@@ -65,10 +65,15 @@ def parse_address(address):
     address = list(dict.fromkeys(address))
     address = ', '.join(address)
     try:
-        components, _ = usaddress.tag(address)
-        return components.get('StateName')
+        components = usaddress.parse(address)
+        options = [
+            component for component, label in components
+            if label == 'StateName' and len(component) == 2 and component.isupper()
+        ]
+        if options:
+            return options[0]
     except usaddress.RepeatedLabelError:
-        return None
+        pass
 
 
 @celery.task
