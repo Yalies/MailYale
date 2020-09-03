@@ -5,7 +5,12 @@
     </label>
     {% for item in items %}
     <label>
-        <input type="checkbox" name="{{ item }}"> {{ item }}
+        <input type="checkbox" name="{{ item }}">
+        {% if item == "" %}
+            {{ default or "None" }}
+        {% else %}
+            {{ item }}
+        {% endif %}
     </label>
     {% endfor %}
 </section>
