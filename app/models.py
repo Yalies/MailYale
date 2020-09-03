@@ -19,3 +19,4 @@ class Student(db.Model):
     birthday = db.Column(db.String)
     major = db.Column(db.String)
     address = db.Column(db.String)
+    state = db.Column(db.String)

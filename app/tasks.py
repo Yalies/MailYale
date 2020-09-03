@@ -102,6 +102,7 @@ def scrape(cookie):
             birthday=birthday,
             major=major,
             address=address,
+            state=state,
         )
         db.session.add(student)
 
