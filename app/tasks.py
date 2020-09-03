@@ -2,6 +2,7 @@ from app import app, db, celery
 from app.models import Student
 
 import os
+import requests
 import re
 from bs4 import BeautifulSoup
 import usaddress
