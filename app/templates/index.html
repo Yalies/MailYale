@@ -21,7 +21,7 @@
     </label>
     {% for year in years %}
     <label>
-        <input type="checkbox" name="{{ year }}"> {{ year }}
+        <input type="checkbox" name="{{ year }}"> {{ year or "Other" }}
     </label>
     {% endfor %}
 </section>

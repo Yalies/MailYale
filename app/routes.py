@@ -50,6 +50,7 @@ def index():
     }
     current_year = datetime.date.today().year
     years = list(range(current_year, current_year + 5))
+    years.append('')
     majors = [
         '',
         'Undeclared',

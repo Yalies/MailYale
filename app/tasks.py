@@ -80,13 +80,16 @@ def scrape(cookie):
             floor = None
             suite = None
             room = None
+        year = int(container.find('div', {'class': 'student_year'}).text.replace('\'', '20'))
+        if year == 20:
+            year = None
 
         student = Student(
             forename=forename,
             surname=surname,
-            year=int(container.find("div", {"class": "student_year"}).text.replace("'", "20")),
+            year=year,
             college=college,
-            pronoun=container.find("div", {"class": "student_info_pronoun"}).text,
+            pronoun=container.find('div', {'class': 'student_info_pronoun'}).text,
             # Guess an email based on name if none provided
             email=email or (forename + '.' + surname).replace(' ', '').lower() + '@yale.edu',
             building_code=building_code,
