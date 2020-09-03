@@ -12,11 +12,10 @@ with open('app/res/majors.txt') as f:
     majors = f.read().splitlines()
 
 
-def get_html():
+def get_html(cookie):
     filename = 'page.html'
     if not os.path.exists(filename):
-        print('Page not cached, fetching...')
-
+        print('Page not cached, fetching...', end='')
         r = requests.get('https://students.yale.edu/facebook/PhotoPageNew',
                          params={
                              'currentIndex': -1,
@@ -25,17 +24,21 @@ def get_html():
                          headers={
                              'Cookie': cookie,
                          })
-        page_text = r.text
+        html = r.text
         with open(filename, 'w') as f:
-            f.write(page_text)
+            f.write(html)
         print('done.')
     else:
+        print('Using cached page.')
         with open(filename, 'r') as f:
-            print('Loading cached page... ', end='')
-            page_text = f.read()
-            print('done.')
-    return page_text
+            html = f.read()
+    return html
 
+
+def get_tree(cookie):
+    html = get_html(cookie)
+    tree = BeautifulSoup(html, 'html.parser')
+    return tree
 
 def clean_year(year):
     year = year.lstrip('\'')
@@ -44,8 +47,6 @@ def clean_year(year):
     int(.replace('\'', '20'))
         if year == 20:
             year = None
-
-
 
 
 def parse_address(address):
@@ -61,7 +62,7 @@ def parse_address(address):
 
 @celery.task
 def scrape(cookie):
-    html = get_html()
+    html = get_html(cookie)
 
     print('Building BeautifulSoup tree.')
     tree = BeautifulSoup(html, 'html.parser')
@@ -82,7 +83,6 @@ def scrape(cookie):
         student.surname = student.surname.strip()
 
         student.year = clean_year(container.find('div', {'class': 'student_year'}).text)
-
         student.college = info[0].text.replace(' College', '')
         student.pronoun = container.find('div', {'class': 'student_info_pronoun'}).text
         try:
