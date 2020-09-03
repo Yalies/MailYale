@@ -44,11 +44,8 @@ def get_tree(html):
 
 
 def clean_name(name):
-    name = name.strip()
     print('Parsing ' + name)
-    forename, surname = name.split(', ', 1)
-    forename = forename.strip()
-    surname = surname.strip()
+    forename, surname = name.strip().split(', ', 1)
     return forename, surname
 
 
