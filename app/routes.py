@@ -1,7 +1,8 @@
 from flask import render_template, request, jsonify
 from flask_cas import login_required
-from app import app, tasks
+from app import app, db, tasks
 from app.models import Student
+from sqlalchemy import distinct
 
 import datetime
 
@@ -146,8 +147,16 @@ def index():
         'Urban Studies',
         'Women\'sGender&SexualityStudies',
     ]
+    entryways = db.session.query(distinct(Student.entryway)).order_by(Student.entryway)
+    floors = db.session.query(distinct(Student.floor)).order_by(Student.floor)
+    suites = db.session.query(distinct(Student.suite)).order_by(Student.suite)
+    only_one = lambda t: t[0]
+    entryways = map(only_one, entryways)
+    floors = map(only_one, floors)
+    suites = map(only_one, suites)
     return render_template('index.html', colleges=colleges,
-                           years=years, majors=majors, building_codes=building_codes)
+                           years=years, majors=majors, building_codes=building_codes,
+                           entryways=entryways, floors=floors, suites=suites)
 
 
 @app.route('/query', methods=['POST'])
