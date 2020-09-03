@@ -37,8 +37,10 @@ def get_html(cookie):
 
 def get_tree(cookie):
     html = get_html(cookie)
+    print('Building BeautifulSoup tree.')
     tree = BeautifulSoup(html, 'html.parser')
     return tree
+
 
 def clean_year(year):
     year = year.lstrip('\'')
@@ -62,10 +64,7 @@ def parse_address(address):
 
 @celery.task
 def scrape(cookie):
-    html = get_html(cookie)
-
-    print('Building BeautifulSoup tree.')
-    tree = BeautifulSoup(html, 'html.parser')
+    tree = get_tree()
     containers = tree.find_all('div', {'class': 'student_container'})
 
     RE_ROOM = re.compile(r'^([A-Z]+)-([A-Z]+)(\d+)(\d)([A-Z]+)?$')
