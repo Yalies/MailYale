@@ -32,7 +32,7 @@
     </label>
     {% for major in majors %}
     <label>
-        <input type="checkbox" name="{{ major }}"> {{ major or "(Empty)" }}
+        <input type="checkbox" name="{{ major }}"> {{ major or "None" }}
     </label>
     {% endfor %}
 </section>
@@ -44,6 +44,17 @@
     {% for building_code, building in building_codes.items() %}
     <label>
         <input type="checkbox" name="{{ building_code }}"> {{ building }}
+    </label>
+    {% endfor %}
+</section>
+<section id="entryway">
+    <h4>Entryway</h4>
+    <label>
+        <input type="checkbox" name="entryway-all"> All
+    </label>
+    {% for entryway in entryways %}
+    <label>
+        <input type="checkbox" name="{{ entryway }}"> {{ entryway or "Other" }}
     </label>
     {% endfor %}
 </section>
