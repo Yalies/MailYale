@@ -2,7 +2,6 @@ from app import app, db, celery
 from app.models import Student
 
 import os
-import pickle
 import re
 from bs4 import BeautifulSoup
 import usaddress
@@ -37,19 +36,10 @@ def get_html(cookie):
     return html
 
 
-def get_tree(cookie):
-    filename = 'tree.pickle'
-    if not os.path.exists(filename):
-        print('Tree not cached, fetching.')
-        html = get_html(cookie)
-        print('Building tree.')
-        tree = BeautifulSoup(html, 'html.parser')
-        with open(filename, 'wb') as f:
-            pickle.dump(tree, f)
-        print('Done building tree.')
-    else:
-        with open(filename, 'rb') as f:
-            tree = pickle.load(f)
+def get_tree(html):
+    print('Building tree.')
+    tree = BeautifulSoup(html, 'html.parser')
+    print('Done building tree.')
     return tree
 
 
@@ -82,7 +72,8 @@ def parse_address(address):
 
 @celery.task
 def scrape(cookie):
-    tree = get_tree()
+    html = get_html(cookie)
+    tree = get_tree(html)
     containers = tree.find_all('div', {'class': 'student_container'})
 
     # Clear all students
