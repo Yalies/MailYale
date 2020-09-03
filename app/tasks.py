@@ -104,3 +104,4 @@ def scrape(cookie):
         db.session.add(student)
 
     db.session.commit()
+    print('Done.')
