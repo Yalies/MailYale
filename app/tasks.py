@@ -10,6 +10,8 @@ import usaddress
 
 with open('app/res/majors.txt') as f:
     MAJORS = f.read().splitlines()
+with open('app/res/states.txt') as f:
+    STATES = f.read().splitlines()
 RE_ROOM = re.compile(r'^([A-Z]+)-([A-Z]+)(\d+)(\d)([A-Z]+)?$')
 RE_BIRTHDAY = re.compile(r'^[A-Z][a-z]{2} \d{1,2}$')
 
