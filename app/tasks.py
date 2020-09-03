@@ -49,7 +49,7 @@ def scrape(cookie):
         surname, forename = name.split(', ', 1)
         surname = surname.strip()
         forename = forename.strip()
-        college = info[0].text
+        college = info[0].text.replace(' College', '')
         try:
             email = info[1].find('a').text
         except AttributeError:
