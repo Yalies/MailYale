@@ -150,13 +150,16 @@ def index():
     entryways = db.session.query(distinct(Student.entryway)).order_by(Student.entryway)
     floors = db.session.query(distinct(Student.floor)).order_by(Student.floor)
     suites = db.session.query(distinct(Student.suite)).order_by(Student.suite)
-    only_one = lambda t: t[0]
-    entryways = map(only_one, entryways)
-    floors = map(only_one, floors)
-    suites = map(only_one, suites)
+    rooms = db.session.query(distinct(Student.room)).order_by(Student.room)
+    # SQLAlchemy returns lists of tuples, so we gotta convert to a list of items.
+    # TODO: is there a SQL-based way to do this?
+    entryways = untuple(entryways)
+    floors = untuple(floors)
+    suites = untuple(suites)
+    rooms = untuple(rooms)
     return render_template('index.html', colleges=colleges,
                            years=years, majors=majors, building_codes=building_codes,
-                           entryways=entryways, floors=floors, suites=suites)
+                           entryways=entryways, floors=floors, suites=suites, rooms=rooms)
 
 
 @app.route('/query', methods=['POST'])
@@ -183,3 +186,7 @@ def scraper():
     payload = request.get_json()
     tasks.scrape.apply_async(args=[payload['cookie']])
     return '', 200
+
+
+def untuple(tuples):
+    return [t[0] for t in tuples]
