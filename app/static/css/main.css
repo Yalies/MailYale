@@ -11,16 +11,15 @@
     padding: 0;
     box-sizing: border-box;
 }
-html, body { min-height: 100%; }
 body {
     font-family: 'Lexend Deca', serif;
     font-size: 14px;
     padding: 20px;
     color: #00356b;
     background: white;
-    border-width: 20px;
-    border-style: solid;
-    border-color: #00356b;
+    border-top-width: 20px;
+    border-top-style: solid;
+    border-top-color: #00356b;
 }
 header {
     margin-bottom: 10px;
@@ -36,6 +35,7 @@ h2 {
 }
 p {
     margin: 5px 0 8px;
+    max-width: 6.5in;
 }
 a {
     color: inherit;
@@ -44,5 +44,4 @@ footer {
     margin-top: 10px;
     font-size: 10px;
     color: lightgray;
-    max-width: 6.5in;
 }
