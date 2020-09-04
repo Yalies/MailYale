@@ -13,3 +13,4 @@ class Config(object):
 
     CAS_SERVER = 'https://secure.its.yale.edu'
     CAS_AFTER_LOGIN = 'root'
+    CAS_LOGIN_ROUTE = '/cas/login'
