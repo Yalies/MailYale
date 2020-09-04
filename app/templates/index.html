@@ -2,9 +2,9 @@
 
 {% block content %}
 <button id="submit">Generate email list</button>
-<h3>Filters:</h3>
 <div>
     <textarea style="display: none;" id="output" cols=60 rows=8 readonly placeholder="No matching students. :("></textarea>
+    <h3>Filters:</h3>
     {% with name = "college", items = colleges %}{% include "_section.html" %}{% endwith %}
     {% with name = "year", items = years, default = "Other" %}{% include "_section.html" %}{% endwith %}
     {% with name = "major", items = majors %}{% include "_section.html" %}{% endwith %}
