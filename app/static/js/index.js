@@ -67,7 +67,7 @@ submit.onclick = function() {
             output.style.display = 'block';
             output.select();
             document.execCommand('copy');
-            submit.textContent = 'Copied to clipboard!';
+            submit.textContent = 'Copied ' + emails.length + ' emails to clipboard!';
             setTimeout(function() {
                 submit.textContent = 'Generate email list';
             }, 1500);
