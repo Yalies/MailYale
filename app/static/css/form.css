@@ -7,7 +7,7 @@ section {
 label {
     display: block;
 }
-button {
+button, .button {
     border: none;
     background: #00356b;
     display: block;
@@ -16,10 +16,10 @@ button {
     padding: 8px 10px;
     cursor: pointer;
 }
-button.success {
+button.success, .button.success {
     background: #38e128;
 }
-button.fail {
+button.fail, .button.fail {
     background: #f20000;
 }
 textarea {
