@@ -80,6 +80,7 @@ def index():
 
 
 @app.route('/query', methods=['POST'])
+@login_required
 def query():
     filters = request.get_json()
     students_query = Student.query
@@ -93,7 +94,10 @@ def query():
 
 
 @app.route('/scraper', methods=['GET', 'POST'])
+@login_required
 def scraper():
+    if cas.username != 'ekb33':
+        return redirect(url_for('index'))
     if request.method == 'GET':
         return render_template('scraper.html')
     payload = request.get_json()
