@@ -14,6 +14,6 @@ celery.conf.update(app.config)
 cors = CORS(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-CAS(app)
+cas = CAS(app)
 
 from app import routes, errors

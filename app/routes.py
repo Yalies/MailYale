@@ -1,6 +1,6 @@
 from flask import render_template, request, jsonify
 from flask_cas import login_required
-from app import app, db, tasks
+from app import app, db, tasks, cas
 from app.models import Student
 from sqlalchemy import distinct
 
@@ -18,8 +18,9 @@ states[''] = 'International/Other'
 
 
 @app.route('/')
-@login_required
 def index():
+    if not cas.username:
+        return render_template('splash.html')
     colleges = [
         'Berkeley',
         'Branford',
