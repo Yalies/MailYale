@@ -82,8 +82,6 @@ def index():
 @app.route('/query', methods=['POST'])
 @login_required
 def query():
-    if cas.username != 'ekb33':
-        abort(403)
     filters = request.get_json()
     students_query = Student.query
     for category in filters:
