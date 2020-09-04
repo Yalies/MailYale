@@ -1,4 +1,4 @@
-# Yalechimp
+# MailYale
 
 > A web application for sending bulk emails to Yale students.
 
