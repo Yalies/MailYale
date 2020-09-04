@@ -82,6 +82,8 @@ def index():
 @app.route('/query', methods=['POST'])
 @login_required
 def query():
+    if cas.username != 'ekb33':
+        abort(403)
     filters = request.get_json()
     students_query = Student.query
     for category in filters:
@@ -97,7 +99,7 @@ def query():
 @login_required
 def scraper():
     if cas.username != 'ekb33':
-        return redirect(url_for('index'))
+        abort(403)
     if request.method == 'GET':
         return render_template('scraper.html')
     payload = request.get_json()
