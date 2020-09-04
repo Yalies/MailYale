@@ -12,5 +12,6 @@ class Config(object):
     CELERY_BROKER_URL = CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL', 'redis://localhost:6379/0')
 
     CAS_SERVER = 'https://secure.its.yale.edu'
-    CAS_AFTER_LOGIN = 'root'
+    CAS_AFTER_LOGIN = 'index'
     CAS_LOGIN_ROUTE = '/cas/login'
+    CAS_AFTER_LOGOUT = 'index'
