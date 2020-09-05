@@ -1,7 +1,7 @@
-from flask import render_template, request, jsonify
+from flask import render_template, request, jsonify, g
 from flask_cas import login_required
 from app import app, db, tasks, cas
-from app.models import Student
+from app.models import User, Student
 from sqlalchemy import distinct
 
 import datetime
@@ -15,6 +15,17 @@ with open('app/res/states.txt') as f:
         state, abbreviation = line.split('\t', 1)
         states[abbreviation.strip()] = state.strip()
 states[''] = 'International/Other'
+
+
+@app.before_request
+def store_user():
+    if request.method != 'OPTIONS':
+        if cas.username:
+            g.user = User.query.get(cas.username)
+            if not g.user:
+                g.user = User(username=cas.username)
+                db.session.add(g.user)
+                db.session.commit()
 
 
 @app.route('/')
