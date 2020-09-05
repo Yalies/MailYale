@@ -43,6 +43,9 @@ p {
 a {
     color: inherit;
 }
+#warning {
+    color: #D5202F;
+}
 footer {
     margin-top: 10px;
     font-size: 10px;

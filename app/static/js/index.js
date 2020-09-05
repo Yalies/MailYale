@@ -1,3 +1,5 @@
+const MAX_EMAILS_PER_DAY = 2000;
+
 let body = document.body,
     checkboxes = document.querySelectorAll('input[type="checkbox"]'),
     allCheckboxes = document.querySelectorAll('input[type="checkbox"][name$="-all"]'),
@@ -34,8 +36,9 @@ onchange = function(e) {
     }
 };
 
-let submit = document.getElementById('submit');
-    sections = document.getElementsByTagName('section');
+let submit = document.getElementById('submit'),
+    sections = document.getElementsByTagName('section'),
+    warning = document.getElementById('warning');
 
 submit.onclick = function() {
     let filters = {};
@@ -68,6 +71,9 @@ submit.onclick = function() {
             output.select();
             document.execCommand('copy');
             submit.textContent = 'Copied ' + emails.length + ' emails to clipboard!';
+            if (emails.length > MAX_EMAILS_PER_DAY) {
+                warning.textContent = 'Warning: Gmail will only allow sending emails to a maximum of ' + MAX_EMAILS_PER_DAY + ' recipients per day. Consider sending your email in batches to smaller groups.';
+            }
             setTimeout(function() {
                 submit.textContent = 'Generate email list';
             }, 1500);
