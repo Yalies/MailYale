@@ -5,6 +5,7 @@ from app.models import User, Student
 from sqlalchemy import distinct
 
 import datetime
+import time
 
 
 with open('app/res/majors.txt') as f:
@@ -25,7 +26,8 @@ def store_user():
             if not g.user:
                 g.user = User(username=cas.username)
                 db.session.add(g.user)
-                db.session.commit()
+            g.user.last_seen = int(time.time())
+            db.session.commit()
 
 
 @app.route('/')
