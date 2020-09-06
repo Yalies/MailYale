@@ -23,10 +23,12 @@ def store_user():
     if request.method != 'OPTIONS':
         if cas.username:
             g.user = User.query.get(cas.username)
+            timestamp = int(time.time())
             if not g.user:
-                g.user = User(username=cas.username)
+                g.user = User(username=cas.username,
+                              registered_on=timestamp)
                 db.session.add(g.user)
-            g.user.last_seen = int(time.time())
+            g.user.last_seen = timestamp
             db.session.commit()
 
 
