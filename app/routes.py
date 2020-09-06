@@ -101,7 +101,7 @@ def query():
     filters = request.get_json()
     students_query = Student.query
     for category in filters:
-        if not category in ('college', 'year', 'major', 'building_code',
+        if category not in ('college', 'year', 'major', 'building_code',
                             'entryway', 'floor', 'suite', 'room', 'state'):
             abort(403)
         students_query = students_query.filter(getattr(Student, category).in_(filters[category]))
