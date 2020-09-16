@@ -130,7 +130,6 @@ def scrape(cookie):
 
         db.session.add(student)
 
-    """
     with open('pre2020.html', 'r') as f:
         html = f.read()
     tree = get_tree(html)
@@ -146,7 +145,6 @@ def scrape(cookie):
         student = Student.query.filter_by(email=email).first()
         if student is not None and student.year is not None:
             student.leave = (year < student.year)
-    """
 
     db.session.commit()
     print('Done.')
