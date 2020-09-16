@@ -23,6 +23,13 @@ def get_html(cookie):
     filename = 'page.html'
     if not os.path.exists(filename):
         print('Page not cached, fetching.')
+        requests.get('https://students.yale.edu/facebook/ChangeCollege',
+                     params={
+                        'newOrg': 'Yale College'
+                     },
+                     headers={
+                         'Cookie': cookie,
+                     })
         r = requests.get('https://students.yale.edu/facebook/PhotoPageNew',
                          params={
                              'currentIndex': -1,
