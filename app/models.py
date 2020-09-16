@@ -28,3 +28,4 @@ class Student(db.Model):
     major = db.Column(db.String)
     address = db.Column(db.String)
     state = db.Column(db.String)
+    leave = db.Column(db.Boolean, default=False)
