@@ -80,6 +80,7 @@ def index():
     current_year = datetime.date.today().year
     years = list(range(current_year, current_year + 5))
     years.append('')
+    leave = ['Yes', 'No']
     entryways = db.session.query(distinct(Student.entryway)).order_by(Student.entryway)
     floors = db.session.query(distinct(Student.floor)).order_by(Student.floor)
     suites = db.session.query(distinct(Student.suite)).order_by(Student.suite)
@@ -91,7 +92,7 @@ def index():
     suites = untuple(suites)
     rooms = untuple(rooms)
     return render_template('index.html', colleges=colleges,
-                           years=years, majors=majors, building_codes=building_codes,
+                           years=years, leave=leave, majors=majors, building_codes=building_codes,
                            entryways=entryways, floors=floors, suites=suites, rooms=rooms, states=states)
 
 
@@ -102,7 +103,7 @@ def query():
     students_query = Student.query
     for category in filters:
         if category not in ('college', 'year', 'major', 'building_code',
-                            'entryway', 'floor', 'suite', 'room', 'state'):
+                            'entryway', 'floor', 'suite', 'room', 'state', 'leave'):
             abort(403)
         students_query = students_query.filter(getattr(Student, category).in_(filters[category]))
     students = students_query.all()
