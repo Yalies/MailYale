@@ -143,7 +143,7 @@ def scrape(cookie):
         except AttributeError:
             continue
         student = Student.query.filter_by(email=email).first()
-        if student is not None and student.year is not None:
+        if student is not None and year is not None and student.year is not None:
             student.leave = (year < student.year)
 
     db.session.commit()
