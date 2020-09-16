@@ -49,6 +49,10 @@ def get_tree(html):
     return tree
 
 
+def get_containers(tree):
+    return tree.find_all('div', {'class': 'student_container'})
+
+
 def clean_name(name):
     print('Parsing ' + name)
     forename, surname = name.strip().split(', ', 1)
@@ -86,7 +90,7 @@ def parse_address(address):
 def scrape(cookie):
     html = get_html(cookie)
     tree = get_tree(html)
-    containers = tree.find_all('div', {'class': 'student_container'})
+    containers = get_containers(tree)
 
     # Clear all students
     Student.query.delete()
@@ -118,6 +122,22 @@ def scrape(cookie):
             pass
 
         db.session.add(student)
+
+    with open('pre2020.html', 'r') as f:
+        html = f.read()
+    tree = get_tree(html)
+    containers = get_containers(tree)
+
+    for container in containers:
+        year = clean_year(container.find('div', {'class': 'student_year'}).text)
+        info = container.find_all('div', {'class': 'student_info'})
+        try:
+            email = info[1].find('a').text
+        except AttributeError:
+            continue
+        student = Student.query.filter_by(email=email).first()
+        if student is not None and student.year is not None:
+            student.leave = (year < student.year)
 
     db.session.commit()
     print('Done.')
