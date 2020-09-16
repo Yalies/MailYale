@@ -51,7 +51,7 @@ submit.onclick = function() {
             for (let checkbox of otherCheckboxes) {
                 if (checkbox.checked) {
                     if (category === 'leave') {
-                        filers[category].push(checkbox.name === 'Yes');
+                        filters[category].push(checkbox.name === 'Yes');
                     } else {
                         filters[category].push(checkbox.name);
                     }
