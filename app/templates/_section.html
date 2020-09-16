@@ -1,5 +1,11 @@
 <section id="{{ name }}">
-    <h4>{{ name[0] | upper}}{{name[1:] }}</h4>
+    <h4>
+        {% if header %}
+            {{ header }}
+        {% else %}
+            {{ name[0] | upper}}{{name[1:] }}
+        {% endif %}
+    </h4>
     <label>
         <input type="checkbox" name="{{ name }}-all"> All
     </label>
