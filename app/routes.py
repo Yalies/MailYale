@@ -108,19 +108,3 @@ def query():
         students_query = students_query.filter(getattr(Student, category).in_(filters[category]))
     students = students_query.all()
     return jsonify([student.email for student in students if student.email])
-
-
-@app.route('/scraper', methods=['GET', 'POST'])
-@login_required
-def scraper():
-    if cas.username != 'ekb33':
-        abort(403)
-    if request.method == 'GET':
-        return render_template('scraper.html')
-    payload = request.get_json()
-    tasks.scrape.apply_async(args=[payload['cookie']])
-    return '', 200
-
-
-def untuple(tuples):
-    return [t[0] for t in tuples]
