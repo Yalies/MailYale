@@ -1,6 +1,6 @@
 from flask import render_template, request, jsonify, g
 from flask_cas import login_required
-from app import app, db, tasks, cas
+from app import app, db, cas
 from app.models import User
 
 import datetime
