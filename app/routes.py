@@ -29,9 +29,16 @@ def index():
     if not cas.username:
         return render_template('splash.html')
     filters = yalies_api.filters()
-    return render_template('index.html', colleges=colleges,
-                           years=years, leave=leave, majors=majors, building_codes=building_codes,
-                           entryways=entryways, floors=floors, suites=suites, rooms=rooms, states=states)
+    filters_used = {
+            'school': 'School',
+            'year': 'Year',
+            'curriculum': 'Graduate Curriculum',
+            'college': 'College',
+            'leave': 'Took Leave?',
+            'eli_whitney': 'Eli Whitney?',
+            'organization': 'Organization',
+            'unit': 'Organization Unit')
+    return render_template('index.html', filters=filters, filters_used=filters_used)
 
 
 @app.route('/query', methods=['POST'])
