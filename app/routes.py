@@ -8,16 +8,6 @@ import datetime
 import time
 
 
-with open('app/res/majors.txt') as f:
-    majors = f.read().splitlines()
-states = {}
-with open('app/res/states.txt') as f:
-    for line in f.read().splitlines():
-        state, abbreviation = line.split('\t', 1)
-        states[abbreviation.strip()] = state.strip()
-states[''] = 'International/Other'
-
-
 @app.before_request
 def store_user():
     if request.method != 'OPTIONS':
@@ -37,54 +27,6 @@ def store_user():
 def index():
     if not cas.username:
         return render_template('splash.html')
-    colleges = [
-        'Berkeley',
-        'Branford',
-        'Davenport',
-        'Ezra Stiles',
-        'Jonathan Edwards',
-        'Benjamin Franklin',
-        'Grace Hopper',
-        'Morse',
-        'Pauli Murray',
-        'Pierson',
-        'Saybrook',
-        'Silliman',
-        'Timothy Dwight',
-        'Trumbull',
-    ]
-    building_codes = {
-        '': 'Off Campus',
-        'BM': 'Bingham Hall',
-        'W': 'Welch Hall',
-        'F': 'Farnam Hall',
-        'D': 'Durfee Hall',
-        'L': 'Lawrance Hall',
-        'V': 'Vanderbilt Hall',
-        'LW': 'Lanman-Wright Hall',
-        'BK': 'Berkeley',
-        'BR': 'Branford',
-        'DC': 'Davenport',
-        'ES': 'Ezra Stiles',
-        'JE': 'Jonathan Edwards',
-        'BF': 'Benjamin Franklin',
-        'GH': 'Grace Hopper',
-        'MC': 'Morse',
-        'MY': 'Pauli Murray',
-        'PC': 'Pierson',
-        'SY': 'Saybrook',
-        'SM': 'Silliman',
-        'TD': 'Timothy Dwight',
-        'TC': 'Trumbull',
-    }
-    current_year = datetime.date.today().year
-    years = list(range(current_year, current_year + 5))
-    years.append('')
-    leave = ['Yes', 'No']
-    entryways = db.session.query(distinct(Student.entryway)).order_by(Student.entryway)
-    floors = db.session.query(distinct(Student.floor)).order_by(Student.floor)
-    suites = db.session.query(distinct(Student.suite)).order_by(Student.suite)
-    rooms = db.session.query(distinct(Student.room)).order_by(Student.room)
     # SQLAlchemy returns lists of tuples, so we gotta convert to a list of items.
     # TODO: is there a SQL-based way to do this?
     entryways = untuple(entryways)
