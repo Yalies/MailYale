@@ -30,14 +30,15 @@ def index():
         return render_template('splash.html')
     filters = yalies_api.filters()
     filters_used = {
-            'school': 'School',
-            'year': 'Year',
-            'curriculum': 'Graduate Curriculum',
-            'college': 'College',
-            'leave': 'Took Leave?',
-            'eli_whitney': 'Eli Whitney?',
-            'organization': 'Organization',
-            'unit': 'Organization Unit')
+        'school': 'School',
+        'year': 'Year',
+        'curriculum': 'Graduate Curriculum',
+        'college': 'College',
+        'leave': 'Took Leave?',
+        'eli_whitney': 'Eli Whitney?',
+        'organization': 'Organization',
+        'unit': 'Organization Unit'
+    }
     return render_template('index.html', filters=filters, filters_used=filters_used)
 
 
