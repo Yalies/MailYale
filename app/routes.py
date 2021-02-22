@@ -1,12 +1,13 @@
 from flask import render_template, request, jsonify, g
 from flask_cas import login_required
 from app import app, db, tasks, cas
-from app.models import User, Student
-from sqlalchemy import distinct
+from app.models import User
 
 import datetime
 import time
+import yalies
 
+yalies_api = yalies.API(os.environ['YALIES_API_KEY'])
 
 @app.before_request
 def store_user():
@@ -27,12 +28,7 @@ def store_user():
 def index():
     if not cas.username:
         return render_template('splash.html')
-    # SQLAlchemy returns lists of tuples, so we gotta convert to a list of items.
-    # TODO: is there a SQL-based way to do this?
-    entryways = untuple(entryways)
-    floors = untuple(floors)
-    suites = untuple(suites)
-    rooms = untuple(rooms)
+    filters = yalies_api.filters()
     return render_template('index.html', colleges=colleges,
                            years=years, leave=leave, majors=majors, building_codes=building_codes,
                            entryways=entryways, floors=floors, suites=suites, rooms=rooms, states=states)
