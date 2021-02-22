@@ -7,7 +7,7 @@ import datetime
 import time
 import yalies
 
-yalies_api = yalies.API(os.environ['YALIES_API_KEY'])
+yalies_api = yalies.API(app.config['YALIES_API_KEY'])
 
 @app.before_request
 def store_user():

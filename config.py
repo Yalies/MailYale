@@ -11,3 +11,5 @@ class Config(object):
     CAS_AFTER_LOGIN = 'index'
     CAS_LOGIN_ROUTE = '/cas/login'
     CAS_AFTER_LOGOUT = 'index'
+
+    YALIES_API_KEY = os.environ.get('YALIES_API_KEY')
