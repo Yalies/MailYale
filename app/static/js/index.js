@@ -100,6 +100,7 @@ p.submit.onclick = function() {
                     let option = checkbox.name;
                     if (option === 'True') option = true;
                     else if (option === 'False') option = false;
+                    else if (option === '') option = null;
 
                     filters[category].push(option);
                 }
