@@ -56,6 +56,37 @@ onclick = function(e) {
     }
 };
 
+onchange = function(e) {
+    let input = e.target;
+    if (input.type === 'checkbox') {
+        let checked = input.checked;
+        let otherCheckboxes = Array.from(input.parentElement.parentElement.getElementsByTagName('input'));
+        let allCheckbox = otherCheckboxes.shift();
+        let filter = input.parentElement.parentElement;
+        if (input == allCheckbox) {
+            filter.classList.toggle('active', !checked);
+            for (let checkbox of otherCheckboxes) {
+                checkbox.checked = !checked;
+            }
+        } else {
+            if (checked) {
+                filter.classList.add('active');
+                allCheckbox.checked = false;
+            } else {
+                let anyChecked = false;
+                for (let checkbox of otherCheckboxes) {
+                    if (checkbox.checked) {
+                        anyChecked = true;
+                        break;
+                    }
+                }
+                filter.classList.toggle('active', anyChecked);
+                allCheckbox.checked = !anyChecked;
+            }
+        }
+    }
+};
+
 p.submit.onclick = function() {
     let filters = {};
     for (let filter of p.filters) {
