@@ -1,21 +1,21 @@
-section {
-    margin-top: 10px;
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 20px;
-}
 label {
     display: block;
 }
 button, .button {
+    font-size: inherit;
+    padding: 9px 12px;
     border: none;
     background: #00356b;
     display: inline-block;
     color: white;
-    font: inherit;
     text-decoration: none;
-    padding: 8px 10px;
     cursor: pointer;
+}
+button.outline, .button.outline {
+    padding: 8px 12px;
+    border: solid 1px lightgray;
+    background: none;
+    color: #00356b;
 }
 button.success, .button.success {
     background: #38e128;
@@ -23,13 +23,57 @@ button.success, .button.success {
 button.fail, .button.fail {
     background: #f20000;
 }
-textarea {
-    max-width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
-    overflow: visible;
-    font: inherit;
+
+#controls {
+    margin-bottom: 15px;
+}
+
+#submit {
+    padding: 8px 10px;
+}
+
+#clear_filters {
+    margin-top: 8px;
+}
+.filter {
+    margin-top: 8px;
+    display: inline-block;
+    vertical-align: top;
+    padding: 8px 12px;
     border: solid 1px lightgray;
-    resize: none;
-    display: block;
+    border-radius: 20px;
+    user-select: none;
+    cursor: pointer;
+}
+.filter.active {
+    border-color: #00356b;
+    border-width: 2px;
+    padding: 7px 11px;
+}
+.filter h4 {
+    margin-bottom: 5px;
+}
+.filter.collapsed h4 {
+    margin-bottom: 0;
+}
+.filter i {
+    transform: rotate(180deg);
+    transition: transform 0.1s;
+}
+.filter.collapsed i {
+    transform: rotate(0);
+    transition: transform 0.1s;
+}
+.filter input,
+.filter label {
+    cursor: pointer;
+}
+.filter.collapsed label {
+    display: none;
+}
+
+@media (max-width: 700px) {
+    .filter label {
+        margin-bottom: 4px;
+    }
 }

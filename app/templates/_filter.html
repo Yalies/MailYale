@@ -1,9 +1,10 @@
-<section id="{{ name }}">
+<div class="filter collapsed" id="{{ name }}">
     <h4>
+        <i class="fa fa-chevron-circle-down"></i>
         {% if header %}
             {{ header }}
         {% else %}
-            {{ name[0] | upper}}{{name[1:] }}
+            {{ name[0] | upper }}{{ name[1:] }}
         {% endif %}
     </h4>
     <label>
@@ -11,7 +12,7 @@
     </label>
     {% for item in items %}
     <label>
-        <input type="checkbox" name="{{ item }}">
+        <input type="checkbox" name="{{ item or '' }}">
         {% if item == "" %}
             {{ default or "None" }}
         {% else %}
@@ -19,4 +20,4 @@
         {% endif %}
     </label>
     {% endfor %}
-</section>
+</div>

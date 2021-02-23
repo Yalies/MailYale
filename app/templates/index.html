@@ -8,7 +8,7 @@
     <h3>Filters:</h3>
     {% for filter in filters_used %}
         {% with name = filter, items = filters[filter], header=filters_used[filter], default = "N/A" %}
-            {% include "_section.html" %}
+            {% include "_filter.html" %}
         {% endwith %}
     {% endfor %}
 </div>
