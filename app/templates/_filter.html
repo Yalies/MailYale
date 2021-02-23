@@ -12,7 +12,7 @@
     </label>
     {% for item in items %}
     <label>
-        <input type="checkbox" name="{{ item or '' }}">
+        <input type="checkbox" name="{{ '' if item is none else item }}">
         {% if item == "" %}
             {{ default or "None" }}
         {% elif item == True %}
