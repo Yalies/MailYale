@@ -2,16 +2,15 @@
 
 {% block content %}
 <button id="submit">Generate email list</button>
-<div>
     <textarea style="display: none;" id="output" cols=60 rows=8 readonly placeholder="No matching students. :("></textarea>
     <p id="warning"></p>
-    <h3>Filters:</h3>
+<div>
     <button id="clear_filters">
         <i class="fa fa-filter"></i>
         Clear Filters
     </button>
     {% for category in filters %}
-        <h4>{{ category }}</h4>
+        <h3>{{ category }}</h3>
         {% for filter in filters[category] %}
             {% with name = filter, items = options[filter], header=filters[category][filter], default = "N/A" %}
                 {% include "_filter.html" %}
