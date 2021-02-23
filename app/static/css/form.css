@@ -6,6 +6,7 @@ button, .button {
     padding: 9px 12px;
     border: none;
     background: #00356b;
+    border-radius: 20px;
     display: inline-block;
     color: white;
     text-decoration: none;
