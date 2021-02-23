@@ -29,6 +29,16 @@ button.fail, .button.fail {
     margin-bottom: 15px;
 }
 
+textarea {
+    max-width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    overflow: visible;
+    font: inherit;
+    border: solid 1px lightgray;
+    resize: none;
+    display: block;
+}
 #submit {
     padding: 8px 10px;
 }
