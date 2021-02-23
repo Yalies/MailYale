@@ -10,10 +10,13 @@
         <i class="fa fa-filter"></i>
         Clear Filters
     </button>
-    {% for filter in filters_used %}
-        {% with name = filter, items = filters[filter], header=filters_used[filter], default = "N/A" %}
-            {% include "_filter.html" %}
-        {% endwith %}
+    {% for category in filters %}
+        <h4>{{ category }}</h4>
+        {% for filter in filters[category] %}
+            {% with name = filter, items = options[filter], header=filters[category][filter], default = "N/A" %}
+                {% include "_filter.html" %}
+            {% endwith %}
+        {% endfor %}
     {% endfor %}
 </div>
 <a href="/logout">Log out</a>

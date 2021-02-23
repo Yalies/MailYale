@@ -28,18 +28,26 @@ def store_user():
 def index():
     if not cas.username:
         return render_template('splash.html')
-    filters = yalies_api.filters()
-    filters_used = {
-        'school': 'School',
-        'year': 'Year',
-        'curriculum': 'Graduate Curriculum',
-        'college': 'College',
-        'leave': 'Took Leave?',
-        'eli_whitney': 'Eli Whitney?',
-        'organization': 'Organization',
-        'unit': 'Organization Unit'
+    options = yalies_api.filters()
+    filters = {
+        'Students': {
+            'school': 'School',
+            'year': 'Year',
+        },
+        'Graduate': {
+            'curriculum': 'Curriculum',
+        },
+        'Undergraduate': {
+            'college': 'College',
+            'leave': 'Took Leave?',
+            'eli_whitney': 'Eli Whitney?',
+        },
+        'Staff': {
+            'organization': 'Organization',
+            'unit': 'Organization Unit'
+        },
     }
-    return render_template('index.html', filters=filters, filters_used=filters_used)
+    return render_template('index.html', options=options, filters=filters)
 
 
 @app.route('/query', methods=['POST'])
