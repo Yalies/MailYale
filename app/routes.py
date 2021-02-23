@@ -40,6 +40,7 @@ def index():
         'Undergraduate': {
             'college': 'College',
             'leave': 'Took Leave?',
+            'major': 'Major',
             'eli_whitney': 'Eli Whitney?',
         },
         'Staff': {
