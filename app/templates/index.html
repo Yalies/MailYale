@@ -6,6 +6,10 @@
     <textarea style="display: none;" id="output" cols=60 rows=8 readonly placeholder="No matching students. :("></textarea>
     <p id="warning"></p>
     <h3>Filters:</h3>
+    <button id="clear_filters">
+        <i class="fa fa-filter"></i>
+        Clear Filters
+    </button>
     {% for filter in filters_used %}
         {% with name = filter, items = filters[filter], header=filters_used[filter], default = "N/A" %}
             {% include "_filter.html" %}
