@@ -97,11 +97,11 @@ p.submit.onclick = function() {
             filters[category] = []
             for (let checkbox of otherCheckboxes) {
                 if (checkbox.checked) {
-                    if (category === 'leave') {
-                        filters[category].push(checkbox.name === 'Yes');
-                    } else {
-                        filters[category].push(checkbox.name);
-                    }
+                    let option = checkbox.name;
+                    if (option === 'True') option = true;
+                    else if (option === 'False') option = false;
+
+                    filters[category].push(option);
                 }
             }
         }
