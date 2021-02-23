@@ -43,6 +43,9 @@ textarea {
     padding: 8px 10px;
 }
 
+#filtering {
+    margin-bottom: 10px;
+}
 #clear_filters {
     margin-top: 8px;
 }
