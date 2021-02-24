@@ -98,6 +98,7 @@ p.submit.onclick = function() {
             for (let checkbox of otherCheckboxes) {
                 if (checkbox.checked) {
                     let option = checkbox.name;
+                    // TODO: we shouldn't have to use the Python representation.
                     if (option === 'True') option = true;
                     else if (option === 'False') option = false;
                     else if (option === '') option = null;
@@ -108,6 +109,7 @@ p.submit.onclick = function() {
         }
     }
     console.log(filters);
+    submit.textContent = 'Searching...';
     fetch('/query', {
         method: 'POST',
         headers: {
