@@ -31,14 +31,26 @@ def index():
     options = yalies_api.filters()
     filters = {
         'Students': {
-            'school': 'School',
-            'year': 'Year',
+            'school': {
+                'header': 'School',
+            },
+            'year': {
+                'header': 'Year',
+            },
         },
         'Undergraduate': {
-            'college': 'College',
-            'leave': 'Took Leave?',
+            'college': {
+                'header': 'College',
+            },
             'major': 'Major',
-            'eli_whitney': 'Eli Whitney?',
+            'leave': {
+                'header': 'Took Leave?',
+                'default': 'N/A'
+            },
+            'eli_whitney': {
+                'header': 'Eli Whitney?',
+                'default': 'N/A'
+            },
             #'building_code': 'Building',
             #'entryway': 'Entryway',
             #'floor': 'Floor',
@@ -46,12 +58,20 @@ def index():
             #'room': 'Room',
         },
         'Graduate': {
-            'curriculum': 'Curriculum',
+            'curriculum': {
+                'Curriculum',
+            },
         },
         'Staff': {
-            'organization': 'Organization',
-            'unit': 'Organization Unit',
-            'office_building': 'Office Building',
+            'organization': {
+                'header': 'Organization',
+            },
+            'unit': {
+                'header': 'Organization Unit',
+            },
+            'office_building': {
+                'header': 'Office Building',
+            },
         },
     }
     return render_template('index.html', options=options, filters=filters)

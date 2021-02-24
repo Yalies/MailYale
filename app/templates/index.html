@@ -12,7 +12,7 @@
     {% for category in filters %}
         <h3>{{ category }}</h3>
         {% for filter in filters[category] %}
-            {% with name = filter, items = options[filter], header=filters[category][filter], default = "N/A" %}
+            {% with name = filter, items = options[filter], header=filters[category][filter]['header'], default = filters[category][filter]['default'] %}
                 {% include "_filter.html" %}
             {% endwith %}
         {% endfor %}
