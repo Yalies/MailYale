@@ -39,6 +39,13 @@ def index():
             'leave': 'Took Leave?',
             'major': 'Major',
             'eli_whitney': 'Eli Whitney?',
+            """
+            'building_code': 'Building',
+            'entryway': 'Entryway',
+            'floor': 'Floor',
+            'suite': 'Suite',
+            'room': 'Room',
+            """
         },
         'Graduate': {
             'curriculum': 'Curriculum',
