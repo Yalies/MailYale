@@ -25,10 +25,6 @@ button.fail, .button.fail {
     background: #f20000;
 }
 
-#controls {
-    margin-bottom: 15px;
-}
-
 textarea {
     max-width: 100%;
     margin: 10px 0;
@@ -45,9 +41,6 @@ textarea {
 
 #filtering {
     margin-bottom: 10px;
-}
-#clear_filters {
-    margin-top: 8px;
 }
 .filter {
     margin-top: 8px;
