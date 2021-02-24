@@ -34,14 +34,14 @@ def index():
             'school': 'School',
             'year': 'Year',
         },
-        'Graduate': {
-            'curriculum': 'Curriculum',
-        },
         'Undergraduate': {
             'college': 'College',
             'leave': 'Took Leave?',
             'major': 'Major',
             'eli_whitney': 'Eli Whitney?',
+        },
+        'Graduate': {
+            'curriculum': 'Curriculum',
         },
         'Staff': {
             'organization': 'Organization',
