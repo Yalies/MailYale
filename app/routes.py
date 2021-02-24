@@ -50,7 +50,8 @@ def index():
         },
         'Staff': {
             'organization': 'Organization',
-            'unit': 'Organization Unit'
+            'unit': 'Organization Unit',
+            'office_building': 'Office Building',
         },
     }
     return render_template('index.html', options=options, filters=filters)
