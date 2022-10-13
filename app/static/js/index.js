@@ -41,7 +41,7 @@ function isFilter(element) {
     return element.tagName === 'DIV' && element.classList.contains('filter');
 }
 
-onclick = function(e) {
+addEventListener('click', function(e) {
     let filter = null;
     if (isFilter(e.target)) {
         filter = e.target;
@@ -54,9 +54,9 @@ onclick = function(e) {
     if (filter) {
         filter.classList.toggle('collapsed');
     }
-};
+});
 
-onchange = function(e) {
+addEventListener('change', function(e) {
     let input = e.target;
     if (input.type === 'checkbox') {
         let checked = input.checked;
@@ -85,7 +85,7 @@ onchange = function(e) {
             }
         }
     }
-};
+});
 
 p.submit.onclick = function() {
     let filters = {};
