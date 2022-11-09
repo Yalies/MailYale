@@ -4,7 +4,8 @@
 <button id="submit">Generate email list</button>
 <textarea style="display: none;" id="output" cols=60 rows=8 readonly placeholder="No matching students. :("></textarea>
 <p id="warning"></p>
-<div id="filtering">
+{# Hack to fix strange onclick bubbling behavior on mobile Safari #}
+<div id="filtering" onclick="void(0);">
     <button id="clear_filters">
         <i class="fa fa-filter"></i>
         Clear Filters
