@@ -12,8 +12,8 @@ yalies_api = yalies.API(app.config['YALIES_API_KEY'])
 @app.before_request
 def store_user():
     if request.method != 'OPTIONS':
-        if cas.id:
-            g.user = User.query.get(cas.id)
+        if cas.username:
+            g.user = User.query.get(cas.username)
             timestamp = int(time.time())
             if not g.user:
                 g.user = User(username=cas.username,
