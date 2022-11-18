@@ -12,21 +12,21 @@ yalies_api = yalies.API(app.config['YALIES_API_KEY'])
 @app.before_request
 def store_user():
     if request.method != 'OPTIONS':
-        if cas.username:
-            g.user = User.query.get(cas.username)
+        if cas.id:
+            g.user = User.query.get(cas.id)
             timestamp = int(time.time())
             if not g.user:
-                g.user = User(username=cas.username,
+                g.user = User(id=cas.id,
                               registered_on=timestamp)
                 db.session.add(g.user)
             g.user.last_seen = timestamp
             db.session.commit()
-            print('NetID: ' + cas.username)
+            print('NetID: ' + cas.id)
 
 
 @app.route('/')
 def index():
-    if not cas.username:
+    if not cas.id:
         return render_template('splash.html')
     options = yalies_api.filters()
     filters = {
