@@ -16,17 +16,17 @@ def store_user():
             g.user = User.query.get(cas.id)
             timestamp = int(time.time())
             if not g.user:
-                g.user = User(id=cas.id,
+                g.user = User(username=cas.username,
                               registered_on=timestamp)
                 db.session.add(g.user)
             g.user.last_seen = timestamp
             db.session.commit()
-            print('NetID: ' + cas.id)
+            print('NetID: ' + cas.username)
 
 
 @app.route('/')
 def index():
-    if not cas.id:
+    if not cas.username:
         return render_template('splash.html')
     options = yalies_api.filters()
     filters = {
